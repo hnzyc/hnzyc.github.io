@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-hans">
+<html class="theme-next muse use-motion" lang="zh-hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -95,9 +95,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -261,318 +261,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io,http://y2s6pn.coding-pages.com/2017/06/14/2017-06-14-%E8%B7%AF%E7%94%B1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0hosts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Davy Zhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钞票搬运工">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/14/2017-06-14-%E8%B7%AF%E7%94%B1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0hosts/" itemprop="url">路由器自动更新hosts</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-14T00:00:00+08:00">
-                2017-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/sy618/hosts/blob/master/dnsmasq/dnsmasq.txt" target="_blank" rel="noopener">https://github.com/sy618/hosts/blob/master/dnsmasq/dnsmasq.txt</a>dnsmasq规则<br>一个强大的hosts、dnsmasq规则实现去广告与自由上网，附手动教程与padavan、tomato固件自动脚本！</p>
-<p>恩山论坛：<a href="http://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=216155&amp;extra=page%3D1&amp;mobile=1&amp;simpletype=no" target="_blank" rel="noopener">http://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=216155&amp;extra=page%3D1&amp;mobile=1&amp;simpletype=no</a></p>
-<p>20170614 前使用过3.2自动化脚本的兄弟，请重新再执行一次，因为规则地址有调整。</p>
-<p>1.什么是dnsmasq：<a href="https://wapbaike.baidu.com/item/DNSmasq?adapt=1" target="_blank" rel="noopener">https://wapbaike.baidu.com/item/DNSmasq?adapt=1</a><br>简单来说，路由器dnsmasq可以看作是部署在路由器上的DNS服务器。<br>dnsmasq功能很多，我们这里主要用来重定向、加快网络响应 和 屏蔽广告（指向127.0.0.1或0.0.0.0）。</p>
-<p>2 规则介绍<br>   2.1 自.由.上.网，享受无墙般体验。<br><a href="https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq</a><br>（注意，这规则并不是万能的，目前仅解析部分高频使用的域名。若想完整访问外网请改用代理方式。）</p>
-<p>   2.2 屏蔽广告<br>可以使用vokins的专门去国内广告hosts<br>局域网内无PC的用这个规则：<br><a href="https://raw.githubusercontent.com/vokins/yhosts/master/hosts" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/hosts</a><br>PC用户的用这个：<br><a href="https://raw.githubusercontent.com/vokins/yhosts/master/hosts.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/hosts.txt</a><br>说明：<br>上面两个hosts规则区别：非PC端的是完整数据。PC端的是删减版，是由于PC端部分视频网站不能用hosts屏蔽，所以删掉了那部分数据。<br>（以hosts方式过滤广告非万能，肯定没有adbyby、KP等使用abp规则方式过滤全面，但对个人来说日常使用是够用了。如对去广告要求高的请用adbyby或KP。）</p>
-<p>屏蔽一些广告家族的dnsmasq规则：<br><a href="https://raw.githubusercontent.com/vokins/yhosts/master/dnsmasq/union.conf" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/dnsmasq/union.conf</a></p>
-<p>   2.3 屏蔽运营商劫持<br><a href="https://raw.githubusercontent.com/vokins/yhosts/master/dnsmasq/ip.conf" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/dnsmasq/ip.conf</a><br>（如何查看是否被劫持，使用nslookup命令测试一个不存在的域名，若返回IP就是劫持）</p>
-<p>3 如何使用<br>   3.1 手动添加（仅适用于h大的老毛子固件）<br>手动添加到自定义脚本的【在 WAN 上行/下行启动后执行】里，实现网络连接上时自动更新。也可以直接在命令行里直接运行。<br>#自由上网dnsmasq：<br>wget –no-check-certificate <a href="https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq</a> -O /etc/storage/dnsmasq/dnsmasq.d/dnsfq.conf;sed -i “1 i## update：$(date “+%Y-%m-%d %H:%M:%S”)” /etc/storage/dnsmasq/dnsmasq.d/dnsfq.conf;restart_dhcpd<br>#去广告hosts：<br>wget –no-check-certificate <a href="https://raw.githubusercontent.com/vokins/yhosts/master/hosts" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/hosts</a> -O /etc/storage/dnsmasq/hosts;sed -i “1 i## update：$(date “+%Y-%m-%d %H:%M:%S”)” /etc/storage/dnsmasq/hosts;restart_dhcpd</p>
-<p>手动添加到定时任务crontab（在 系统管理 - 服务 -计划任务 (Crontab) 里）<br>#自由上网dnsmasq：<br>01 00 * * * wget –no-check-certificate <a href="https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq</a> -O /etc/storage/dnsmasq/dnsmasq.d/dnsfq.conf;sed -i “1 i## update：$(date “+%Y-%m-%d %H:%M:%S”)” /etc/storage/dnsmasq/dnsmasq.d/dnsfq.conf;restart_dhcpd<br>#去广告hosts<br>02 00 * * * wget –no-check-certificate <a href="https://raw.githubusercontent.com/vokins/yhosts/master/hosts" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/hosts</a>  -O /etc/storage/dnsmasq/hosts;sed -i “1 i## update：$(date “+%Y-%m-%d %H:%M:%S”)” /etc/storage/dnsmasq/hosts;restart_dhcpd</p>
-<p>   3.2 自动化脚本，不会手动添加的用以下一键脚本命令<br>       3.2.1 适用 hiboy大的【padavan固件】<br>固件地址：<a href="http://www.right.com.cn/forum/thread-161324-1-1.html" target="_blank" rel="noopener">http://www.right.com.cn/forum/thread-161324-1-1.html</a><br>一键运行命令：<br>mkdir -p /etc/storage/dnsmasq/dns;wget –no-check-certificate <a href="https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/sh/setting.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/sh/setting.sh</a> -O /etc/storage/dnsmasq/dns/setting.sh;sh /etc/storage/dnsmasq/dns/setting.sh<br>一键还原命令：<br>sh /etc/storage/dnsmasq/dns/del.sh<br>详细看<a href="https://github.com/sy618/hosts/tree/master/dnsmasq/sh" target="_blank" rel="noopener">https://github.com/sy618/hosts/tree/master/dnsmasq/sh</a></p>
-<pre><code>3.2.2 适用【tomato固件】</code></pre><p>固件地址：<a href="http://tomato.groov.pl/" target="_blank" rel="noopener">http://tomato.groov.pl/</a><br>（感谢@◈Elvira◈ 的调试与帮助）<br>一键运行命令：<br>mkdir -p /tmp/etc/dns;wget <a href="https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/tomato/setting.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/tomato/setting.sh</a> -O /tmp/etc/dns/setting.sh;sh /tmp/etc/dns/setting.sh<br>一键还原命令：<br>sh /tmp/etc/dns/del.sh</p>
-<p>  3.3 其他固件：<br>Openwtr、LEDE、ddwrt等固件脚本可以尝试这位基友发的帖子里的脚本<br><a href="http://www.right.com.cn/forum/thread-217335-1-1.html" target="_blank" rel="noopener">http://www.right.com.cn/forum/thread-217335-1-1.html</a><br><a href="https://github.com/clion007/dnsmasq" target="_blank" rel="noopener">https://github.com/clion007/dnsmasq</a><br>（这个脚本做的不错，有问题找帖子作者反馈。）</p>
-<ul>
-<li>不建议订阅太多规则（hosts或dnsmasq），可能会影响网络响应速度。因为路由器是使用遍历方式查询规则列表，规则越多耗时越多。同时太多规则你也很难排查问题在哪。</li>
-</ul>
-<p>4.已集成规则的老毛子固件<br><a href="http://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=216667&amp;extra=page%3D3&amp;mobile=2" target="_blank" rel="noopener">http://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=216667&amp;extra=page%3D3&amp;mobile=2</a><br>这是由论坛基友做的固件，可以刷入试试。</p>
-<p>5.优缺点<br>优点：解析快，消耗极少CPU资源，非常适合路由器使用。过滤广告无需证书，可部分代替s-s<br>缺点：IP易失效、hosts方式过滤广告有局限性。<br>这一切美好的事情，全靠规则维护者的维护，希望有更多人加入维护！</p>
-<p>由于不常上论坛，有问题请到github上反馈与交流！<br>去广告项目：<br><a href="https://github.com/vokins/yhosts" target="_blank" rel="noopener">https://github.com/vokins/yhosts</a><br>FQ项目：<br><a href="https://github.com/sy618/hosts" target="_blank" rel="noopener">https://github.com/sy618/hosts</a></p>
-<p>前面提到的恩山那个论坛帖子<br><a href="http://www.right.com.cn/forum/thread-217335-1-1.html" target="_blank" rel="noopener">http://www.right.com.cn/forum/thread-217335-1-1.html</a>这个帖子纪录了如何修改路由器dnsmasq来自动更新hosts的方法，使用了以下脚本：</p>
-<pre><code>#!/bin/sh
-###仅限潘多拉与openwrt类固件使用###
-
-###请将DNS设置为lan网关###
-
-###该脚本只需要运行一次###
-
-###-------------------------------------------Copyright (c) 2014-2017, clion007----------------------------------------###
-# https://github.com/clion007/dnsmasq
-
-# 移动到用户命令文件夹
-cd /usr/bin/
-
-# 创建广告规则与更新脚本存放的文件夹
-mkdir -p /etc/dnsmasq
-mkdir -p /etc/dnsmasq.d
-
-# dnsmasq.conf 添加广告规则路径
-cat &gt;&gt; /etc/dnsmasq.conf &lt;&lt;EOF
-# 添加监听地址（将192.168.1.1修改为你的lan网关ip）
-listen-address=192.168.1.1,127.0.0.1
-
-# 并发查询所有上游DNS
-all-servers
-
-# 添加上游DNS服务器
-resolv-file=/etc/dnsmasq/resolv.conf
-
-# 添加额外hosts规则路径
-addn-hosts=/etc/dnsmasq/noad.conf
-
-# IP反查域名
-bogus-priv
-
-# 添加DNS解析文件
-conf-file=/etc/dnsmasq.d/fqad.conf
-EOF
-
-# 创建上游DNS配置文件
-cat &gt; /etc/dnsmasq/resolv.conf &lt;&lt;EOF
-# 上游DNS解析服务器
-nameserver 127.0.0.1
-nameserver 218.30.118.6
-nameserver 8.8.4.4
-nameserver 182.254.116.116
-nameserver 119.29.29.29
-nameserver 4.2.2.2
-nameserver 114.114.114.114
-EOF
-
-# 开始下载扶墙和广告规则
-
-# 下载dnsmasq规则
-# # 下载sy618规则
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq &gt; /etc/dnsmasq.d/sy168.conf
-# 下载racaljk规则
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/racaljk/hosts/master/dnsmasq.conf &gt; /etc/dnsmasq.d/racaljk.conf
-# 下载vokins广告规则
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/vokins/yhosts/master/dnsmasq/union.conf &gt; /etc/dnsmasq.d/ad.conf
-# 下载easylistchina广告规则
-wget --no-check-certificate -qO - https://c.nnjsx.cn/GL/dnsmasq/update/adblock/easylistchina.txt &gt; /etc/dnsmasq.d/easylistchina.conf
-# 删除racaljk规则中google相关规则
-sed -i &apos;/google/d&apos; /etc/dnsmasq.d/racaljk.conf
-sed -i &apos;/youtube/d&apos; /etc/dnsmasq.d/racaljk.conf
-# 合并dnsmasq缓存
-cd /etc/dnsmasq.d;cat racaljk.conf sy168.conf ad.conf easylistchina.conf &gt; fqad
-# 删除dnsmasq缓存
-rm -rf /etc/dnsmasq.d/ad.conf
-rm -rf /etc/dnsmasq.d/sy168.conf
-rm -rf /etc/dnsmasq.d/racaljk.conf
-rm -rf /etc/dnsmasq.d/easylistchina.conf
-# 删除dnsmasq重复规则
-sort /etc/dnsmasq.d/fqad | uniq &gt; /etc/dnsmasq.d/fqad.conf
-# 删除dnsmasq合并缓存
-rm -rf /etc/dnsmasq.d/fqad
-# 删除无用的注释
-sed -i &apos;/#/d&apos; /etc/dnsmasq.d/fqad.conf
-
-# 下载hosts规则
-# 下载yhosts缓存
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/vokins/yhosts/master/hosts.txt &gt; /etc/dnsmasq/yhosts.conf
-# 下载malwaredomainlist?嬖?
-wget --no-check-certificate -qO - http://www.malwaredomainlist.com/hostslist/hosts.txt &gt; /etc/dnsmasq/malwaredomainlist.conf
-# 下载adaway规则缓存
-wget --no-check-certificate -qO - http://77l5b4.com1.z0.glb.clouddn.com/hosts.txt &gt; /etc/dnsmasq/adaway.conf
-# 合并hosts缓存
-cd /etc/dnsmasq;cat yhosts.conf adaway.conf malwaredomainlist.conf &gt; noad
-# 删除hosts缓存
-rm -rf /etc/dnsmasq/yhosts.conf
-rm -rf /etc/dnsmasq/adaway.conf
-rm -rf /etc/dnsmasq/malwaredomainlist.conf
-# 删除hosts重复规则
-sort /etc/dnsmasq/noad | uniq &gt; /etc/dnsmasq/noad.conf
-# 删除hosts合并缓存
-rm -rf /etc/dnsmasq/noad
-# 删除无用的注释
-sed -i &apos;/#/d&apos; /etc/dnsmasq/noad.conf
-sed -i &apos;/@/d&apos; /etc/dnsmasq/noad.conf
-
-# 扶墙和广告屏蔽规则下载结束
-
-# 重启dnsmasq服务
-killall dnsmasq
-/usr/sbin/dnsmasq
-
-# 创建规则更新脚本
-cat &gt; /etc/dnsmasq/fqad_update.sh &lt;&lt;EOF
-    #!/bin/sh
-# 移动到用户命令文件夹
-cd /usr/bin/
-
-# 开始更新dnsmasq规则
-# # 下载sy618规则
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/sy618/hosts/master/dnsmasq/dnsfq &gt; /etc/dnsmasq.d/sy168.conf
-# 下载racaljk规则
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/racaljk/hosts/master/dnsmasq.conf &gt; /etc/dnsmasq.d/racaljk.conf
-# 下载vokins广告规则
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/vokins/yhosts/master/dnsmasq/union.conf &gt; /etc/dnsmasq.d/ad.conf
-# 下载easylistchina广告规则
-wget --no-check-certificate -qO - https://c.nnjsx.cn/GL/dnsmasq/update/adblock/easylistchina.txt &gt; /etc/dnsmasq.d/easylistchina.conf
-# 删除racaljk规则中google相关规则
-sed -i &apos;/google/d&apos; /etc/dnsmasq.d/racaljk.conf
-sed -i &apos;/youtube/d&apos; /etc/dnsmasq.d/racaljk.conf
-# 合并dnsmasq缓存
-cd /etc/dnsmasq.d;cat racaljk.conf sy168.conf ad.conf easylistchina.conf &gt; fqad
-# 删除dnsmasq缓存
-rm -rf /etc/dnsmasq.d/ad.conf
-rm -rf /etc/dnsmasq.d/sy168.conf
-rm -rf /etc/dnsmasq.d/racaljk.conf
-rm -rf /etc/dnsmasq.d/easylistchina.conf
-# 删除dnsmasq重复规则
-sort /etc/dnsmasq.d/fqad | uniq &gt; /etc/dnsmasq.d/fqad.conf
-# 删除dnsmasq合并缓存
-rm -rf /etc/dnsmasq.d/fqad
-# 删除无用的注释
-sed -i &apos;/#/d&apos; /etc/dnsmasq.d/fqad.conf
-# dnsmasq规则更新结束
-
-# 开始更新hosts规则
-# 下载yhosts缓存
-wget --no-check-certificate -qO - https://raw.githubusercontent.com/vokins/yhosts/master/hosts.txt &gt; /etc/dnsmasq/yhosts.conf
-# 下载malwaredomainlist?嬖?
-wget --no-check-certificate -qO - http://www.malwaredomainlist.com/hostslist/hosts.txt &gt; /etc/dnsmasq/malwaredomainlist.conf
-# 下载adaway规则缓存
-wget --no-check-certificate -qO - http://77l5b4.com1.z0.glb.clouddn.com/hosts.txt &gt; /etc/dnsmasq/adaway.conf
-# 合并hosts缓存
-cd /etc/dnsmasq;cat yhosts.conf adaway.conf malwaredomainlist.conf &gt; noad
-# 删除hosts缓存
-rm -rf /etc/dnsmasq/yhosts.conf
-rm -rf /etc/dnsmasq/adaway.conf
-rm -rf /etc/dnsmasq/malwaredomainlist.conf
-# 删除hosts重复规则
-sort /etc/dnsmasq/noad | uniq &gt; /etc/dnsmasq/noad.conf
-# 删除hosts合并缓存
-rm -rf /etc/dnsmasq/noad
-# 删除无用的注释
-sed -i &apos;/#/d&apos; /etc/dnsmasq/noad.conf
-sed -i &apos;/@/d&apos; /etc/dnsmasq/noad.conf
-# hosts规则更新结束
-
-# 重启dnsmasq服务
-killall dnsmasq
-/usr/sbin/dnsmasq
-EOF
-
-# 注入每天更新一次的任务
-chmod 755 /etc/dnsmasq/fqad_update.sh
-#http_username=`nvram get http_username`
-sed -i &apos;/fqad_update/d&apos; /etc/crontabs/root
-
-cat &gt;&gt; /etc/crontabs/root &lt;&lt;EOF
-# 每天5点30分更新dnsmasq和hosts规则
-30 5 * * * /bin/sh /etc/dnsmasq/fqad_update.sh
-EOF    </code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io,http://y2s6pn.coding-pages.com/2017/06/02/2017-06-02-Hosts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -617,6 +305,17 @@ EOF    </code></pre>
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/02/2017-06-02-Hosts/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/02/2017-06-02-Hosts/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -786,6 +485,17 @@ EOF    </code></pre>
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/09/2017-05-09-%E8%BD%AC%E5%B8%96%EF%BC%9AHomebrew%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/09/2017-05-09-转帖：Homebrew的安装与使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -962,6 +672,17 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/09/2017-05-11-%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/09/2017-05-11-绑定域名/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1086,6 +807,17 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/09/2017-05-13-BBC%E7%BA%AA%E5%BD%95%E7%89%87/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/09/2017-05-13-BBC纪录片/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1207,6 +939,17 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/08/2017-05-08-%E6%97%B6%E5%88%BB%E4%BF%9D%E6%8C%81%E4%B8%80%E9%A2%97%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BF%83%20copy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/08/2017-05-08-时刻保持一颗学习的心 copy/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -1348,6 +1091,17 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/05/2017-05-05-%E5%A6%82%E4%BD%95%E7%94%A8Markdown%E5%A2%9E%E5%8A%A0%E5%9B%BE%E7%89%87/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/05/2017-05-05-如何用Markdown增加图片/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1478,7 +1232,7 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1546,7 +1300,7 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
@@ -1646,13 +1400,6 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
   
 
   
@@ -1664,6 +1411,14 @@ brew install bar</code></pre><p>关于Homebrew的其它功能，比如将自定�
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
 
   
 
