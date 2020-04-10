@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,终身学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="https:&#x2F;&#x2F;www.udacity.comudacity,一个可以学习python等相关科技的学习网站，网站商业模式很棒，很多基础类课程都是免费的，只有一些需要认证的课程收费，对于我这种业余爱好者来说非常适合。 比如，我今年的一个目标是学习python，但是在刚开始学习的时候，遇到了使用vim的问题，就开始去学习使用vim，后来因此又跟着鸟哥学习了一遍Linux，从而对网络云有了一点点多多理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迷上udacity">
+<meta property="og:url" content="https://hnzyc.github.io/%EF%BC%8Chttp://y2s6pn.coding-pages.com/2017/06/18/2017-06-18-%E8%BF%B7%E4%B8%8Audacity/index.html">
+<meta property="og:site_name" content="钞票搬运工">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.udacity.comudacity,一个可以学习python等相关科技的学习网站，网站商业模式很棒，很多基础类课程都是免费的，只有一些需要认证的课程收费，对于我这种业余爱好者来说非常适合。 比如，我今年的一个目标是学习python，但是在刚开始学习的时候，遇到了使用vim的问题，就开始去学习使用vim，后来因此又跟着鸟哥学习了一遍Linux，从而对网络云有了一点点多多理解">
+<meta property="article:published_time" content="2017-06-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-20T13:37:27.367Z">
+<meta property="article:author" content="Davy Zhao">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="终身学习">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2017/06/18/2017-06-18-迷上udacity/"/>
+
+
+
+
+
+  <title>迷上udacity | 钞票搬运工</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钞票搬运工</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">投资、成长，终生学习</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2017/06/18/2017-06-18-%E8%BF%B7%E4%B8%8Audacity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">迷上udacity</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-18T00:00:00+08:00">
+                2017-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.udacity.com" target="_blank" rel="noopener">https://www.udacity.com</a>udacity,一个可以学习python等相关科技的学习网站，网站商业模式很棒，很多基础类课程都是免费的，只有一些需要认证的课程收费，对于我这种业余爱好者来说非常适合。</p>
+<p>比如，我今年的一个目标是学习python，但是在刚开始学习的时候，遇到了使用vim的问题，就开始去学习使用vim，后来因此又跟着鸟哥学习了一遍Linux，从而对网络云有了一点点多多理解，假设了AWS，大大方便了自由访问google。</p>
+<p>好了，说回这个udacity，我准备在这上面学习python，然后就有种耳目一新的感觉，比如，我用两天时间就大体上有了一个概念，比如如何使用python画图，制作movie网站，批量修改文件名等，其实这还只是在“技能”这个层面，接下来我想说一下带给我震撼的“道”的层面的提升。</p>
+<p>例如：如何使用Google？Google仅仅是搜索信息的工具吗？不，远远不止这些，任何不会的，都可以Google，比如用python写代码的时候，不知道使用哪个函数，怎么办？Google！不知道使用哪个模块怎么办？Google！有时候根本不知道该怎么写代码，哪里有可以借鉴的代码呢？Google！Google就是一个强大的学习工具，任何时候，不懂得任何事情，都可以Google，它实在是太强大啦。</p>
+<p>再例如：编程的整个过程，就是从一开始import各种函数，一步步定义每个参数，一行行的代码写下来的吗？不是！任何一个程序，无论大小，首先要写下来具体的步骤，第一步做什么，第二步怎么做，重复前面的动作等提纲，然后才用代码逐步实现每一个步骤。这是编程的真正逻辑。</p>
+<p>而且，编程的过程中，都是一点点完善，一点点增加代码进去的。</p>
+<p>最后，这个python课程<a href="https://classroom.udacity.com/courses/ud036" target="_blank" rel="noopener">https://classroom.udacity.com/courses/ud036</a>还形象化的把函数、类、模块、库的逻辑关系用一个展示板清晰的展示出来，对于python的理解大有好处，只是，我没有跟着一步步做下来，而且做的过程中总是有bug，因为是初段，也不知道究竟是哪里出了问题，只能留着以后学好基础以后再来debug。</p>
+<p>补充一点：看了这个课程，让我更理解了，如何用以致学的道理。真正学习python是干嘛？建一个自己的网站，抓取一些市场数据，分析筛选股票等等。看到这个教程，对python的用途和代码之间的关系，理解又多了一层。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/%E7%BB%88%E8%BA%AB%E5%AD%A6%E4%B9%A0/" rel="tag"># 终身学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/14/2017-06-14-%E8%B7%AF%E7%94%B1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0hosts/" rel="next" title="路由器自动更新hosts">
+                <i class="fa fa-chevron-left"></i> 路由器自动更新hosts
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/19/2017-06-19-%E8%82%B2%E5%84%BF%E4%B9%A6%E4%B9%A6%E5%8D%95/" rel="prev" title="育儿书书单">
+                育儿书书单 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Davy Zhao</p>
+              <p class="site-description motion-element" itemprop="description">离钱近，离事远，离是非更远！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Davy Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

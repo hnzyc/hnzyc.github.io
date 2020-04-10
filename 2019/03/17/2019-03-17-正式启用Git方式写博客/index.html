@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git,技术," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Git技术是使用Github的基础–关于GitGit是使用Github的基础，可惜我好早前曾经试图学习过，但是后来因为种种原因又丢掉了，毕竟自己不是程序员，其实对于版本的要求并不高。 但是最近由于工作中涉及到大量的合同的修改，一个项目的合同版本无数个，而且其中的差异究竟是什么，时间一长自己都搞不清楚了，所以萌生了重新学习Git的想法，于是，这个周末才从廖雪峰老师的网站快速的学习了一遍Git教程，失">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正式启用Git方式写博客">
+<meta property="og:url" content="https://hnzyc.github.io/%EF%BC%8Chttp://y2s6pn.coding-pages.com/2019/03/17/2019-03-17-%E6%AD%A3%E5%BC%8F%E5%90%AF%E7%94%A8Git%E6%96%B9%E5%BC%8F%E5%86%99%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="钞票搬运工">
+<meta property="og:description" content="Git技术是使用Github的基础–关于GitGit是使用Github的基础，可惜我好早前曾经试图学习过，但是后来因为种种原因又丢掉了，毕竟自己不是程序员，其实对于版本的要求并不高。 但是最近由于工作中涉及到大量的合同的修改，一个项目的合同版本无数个，而且其中的差异究竟是什么，时间一长自己都搞不清楚了，所以萌生了重新学习Git的想法，于是，这个周末才从廖雪峰老师的网站快速的学习了一遍Git教程，失">
+<meta property="article:published_time" content="2019-03-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-20T13:37:27.373Z">
+<meta property="article:author" content="Davy Zhao">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2019/03/17/2019-03-17-正式启用Git方式写博客/"/>
+
+
+
+
+
+  <title>正式启用Git方式写博客 | 钞票搬运工</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钞票搬运工</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">投资、成长，终生学习</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2019/03/17/2019-03-17-%E6%AD%A3%E5%BC%8F%E5%90%AF%E7%94%A8Git%E6%96%B9%E5%BC%8F%E5%86%99%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">正式启用Git方式写博客</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-17T00:00:00+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Git技术是使用Github的基础"><a href="#Git技术是使用Github的基础" class="headerlink" title="Git技术是使用Github的基础"></a>Git技术是使用Github的基础</h1><h2 id="–关于Git"><a href="#–关于Git" class="headerlink" title="–关于Git"></a>–关于Git</h2><p>Git是使用Github的基础，可惜我好早前曾经试图学习过，但是后来因为种种原因又丢掉了，毕竟自己不是程序员，其实对于版本的要求并不高。</p>
+<p>但是最近由于工作中涉及到大量的合同的修改，一个项目的合同版本无数个，而且其中的差异究竟是什么，时间一长自己都搞不清楚了，所以萌生了重新学习Git的想法，于是，这个周末才从<a href="www.liaoxuefeng.com">廖雪峰老师的网站</a>快速的学习了一遍Git教程，失望地发现Git是没有 办法控制word的版本，那就还是拿来用于更新自己的博客吧。</p>
+<h2 id="–接下来要写什么"><a href="#–接下来要写什么" class="headerlink" title="–接下来要写什么"></a>–接下来要写什么</h2><p>这段时间以来，一直都是非常的忙，但是写作要继续，只有把读的书，看的文章，利用零散时间学习到的知识写下来，梳理出来，才能很好的吸收掌握，所以我还是会继续把平时工作和生活中总结梳理的技术相关的小技巧啊，有用的小软件啊，在这里做记录。</p>
+<p>另外，我还需要记录自己的投资实况。我的十年财务自由之路已经开启，为了督促和监督自己，也需要把相关的进展和执行过程中的一些思考忠实地记录下来，并且可以加以改善、修正。我还需要定期向老婆大人披露执行情况。</p>
+<h2 id="–如何坚持"><a href="#–如何坚持" class="headerlink" title="–如何坚持"></a>–如何坚持</h2><p>简单的事情做到极致，也能产生很好的效果。</p>
+<p>做事情不用贪多，日拱一卒，做好每天就好。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/19/2017-12-19-HidelpVPN%E6%8F%90%E4%BE%9B%E5%85%8D%E8%B4%B9%E7%9A%84VPN%E6%9C%8D%E5%8A%A1/" rel="next" title="推荐HidelpVPN">
+                <i class="fa fa-chevron-left"></i> 推荐HidelpVPN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/2019-03-22-%E6%9C%80%E8%BF%91%E6%88%91%E9%9D%9E%E5%B8%B8%E6%8E%A8%E5%B4%87%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BD%91%E7%AB%99%E6%88%96%E8%80%85%E5%85%AC%E4%BC%97%E5%8F%B7/" rel="prev" title="最近我非常推崇的一些网站或者公众号">
+                最近我非常推崇的一些网站或者公众号 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Davy Zhao</p>
+              <p class="site-description motion-element" itemprop="description">离钱近，离事远，离是非更远！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git技术是使用Github的基础"><span class="nav-number">1.</span> <span class="nav-text">Git技术是使用Github的基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#–关于Git"><span class="nav-number">1.1.</span> <span class="nav-text">–关于Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#–接下来要写什么"><span class="nav-number">1.2.</span> <span class="nav-text">–接下来要写什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#–如何坚持"><span class="nav-number">1.3.</span> <span class="nav-text">–如何坚持</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Davy Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

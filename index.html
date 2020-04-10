@@ -231,6 +231,778 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2020/04/10/FSO%E4%B9%8B%E6%96%87%E4%BB%B6%E5%8F%8A%E6%96%87%E4%BB%B6%E5%A4%B9%E6%93%8D%E4%BD%9C%E5%8F%8A%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7%E7%AD%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/10/FSO%E4%B9%8B%E6%96%87%E4%BB%B6%E5%8F%8A%E6%96%87%E4%BB%B6%E5%A4%B9%E6%93%8D%E4%BD%9C%E5%8F%8A%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7%E7%AD%89/" itemprop="url">FSO之文件及文件夹操作及获取相关属性等</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T21:21:49+08:00">
+                2020-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="FSO之文件及文件夹操作及获取相关属性等"><a href="#FSO之文件及文件夹操作及获取相关属性等" class="headerlink" title="FSO之文件及文件夹操作及获取相关属性等"></a><strong>FSO之文件及文件夹操作及获取相关属性等</strong></h1><p>本文摘自excelhome论坛liulang0808的<a href="http://club.excelhome.net/forum.php?mod=viewthread&tid=1174170&extra=&authorid=238368&page=1" target="_blank" rel="noopener">文章</a>，主要是太经典了，怕将来不开源了，记录下来，以备常常学习和借用。</p>
+<p>总体的代码框架如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">   Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso =<span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line"><span class="comment">'    此处根据具体操作添加代码</span></span><br><span class="line">   Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="一、文件有关的操作"><a href="#一、文件有关的操作" class="headerlink" title="一、文件有关的操作"></a>一、文件有关的操作</h2><ol>
+<li>判断文件是否存在</li>
+</ol>
+<p>FileExists方法用于判断指定的文件是否存在，若存在则返回True。其语法为：<br>fso.FileExists(Filepath)<br>Filepath为文件完整路径，String类型，不能包含有通配符。如果用户有充分的权限，Filepath可以是网络路径或共享名<br>示例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    strfile = Application.<span class="built_in">InputBox</span>(<span class="string">"请输入文件的完整名称:"</span>, <span class="string">"请输入文件的完整名称:"</span>, , , , , , <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">If</span> fso.fileexists(strfile) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> strfile &amp; <span class="string">" :存在"</span></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        <span class="built_in">MsgBox</span> strfile &amp; <span class="string">" :不存在"</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>移动文件</li>
+</ol>
+<p>MoveFile方法用来移动文件，将文件从一个文件夹移动到另一个文件夹。其语法为：<br>FSO.MoveFile source,destination<br>参数source必需，指定要移动的文件的路径，String类型。参数destination必需，指定文件移动操作中的目标位置的路径，String类型。<br>如果Source包含通配符或者destination以路径分隔符结尾，则认为destination是一个路径，否则认为destination的最后一部分是文件名。<br>如果目标文件已经存在，则将出现一个错误。<br>source可以包含通配符，但只能出现在它的最后一部分中。<br>destination参数不能包含通配符。<br>source或destination可以是相对路径或绝对路径，可以是网络路径或共享名。<br>MoveFile方法在开始操作前先解析source和destination这两个参数。<br>实例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sourcefile = ThisWorkbook.Path &amp; <span class="string">"\txt\*"</span> <span class="comment">'将txt文件下所有文件移走，首先需要确认是相关文件时针的存在</span></span><br><span class="line"></span><br><span class="line">    destinationfolder = ThisWorkbook.Path &amp; <span class="string">"\tt\"</span> <span class="comment">'注意路径格式“tt\”，后面的“\”</span></span><br><span class="line"></span><br><span class="line">    fso.movefile sourcefile, destinationfolder</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>拷贝文件</li>
+</ol>
+<p>CopyFile方法用来复制文件，将文件从一个文件夹复制到另一个文件夹。其语法为：<br>fso.CopyFile Source,Destination [,OverwriteFiles]<br>参数Source必需，指定要复制的文件的路径和名称，String类型。参数Destination必需，代表复制文件的目标路径和文件名（可选），String类型。参数OverwriteFiles可选，表示是否覆盖一个现有文件的标志，True表示覆盖，False表示不覆盖，Boolean类型，默认值为True。<br>参数source中源路径可以是绝对路径或相对路径，源文件名可包含通配符但源路径不能。在参数Destination中不能包含通配符。<br>如果目标路径或文件设置为只读，则无论OverwriteFiles参数的值如何，都将无法完成CopyFile方法。如果参数OverwriteFiles设置为False且Destination指定的文件已经存在，则会产生一个运行时错误“文件已经存在”。如果在复制多个文件时出现错误，CopyFile方法将立即停止复制操作，该方法不具有撤销错误前文件复制操作的返回功能。如果用户有充分的权限，那么source或destination可以是网络路径或共享名。 CopyFile方法可以复制一个保存在特定文件夹中的文件。如果文件夹本身有包含文件的子文件夹，则使用CopyFile方法不能复制这些文件，应该使用CopyFolder方法。<br>具体实例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sourcefile = ThisWorkbook.Path &amp; <span class="string">"\txt\*"</span> <span class="comment">'将txt文件下所有文件拷贝走，首先需要确认是相关文件时针的存在</span></span><br><span class="line">    destinationfolder = ThisWorkbook.Path &amp; <span class="string">"\tt\"</span> <span class="comment">'注意此处不同于movefile，后面的“\”可以省略，只要确实存在该文件夹</span></span><br><span class="line">    fso.copyfile sourcefile, destinationfolder</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删除文件</li>
+</ol>
+<p>DeleteFile方法删除指定的一个或多个文件。其语法为：<br>fso.DeleteFile FileSpec[,Force]<br>参数FileSpec必需，代表要删除的单个文件或多个文件的名称和路径，String类型，可以在路径的最后部分包含通配符，可以为相对路径或绝对路径。如果在FileSpec中只有文件名，则认为该文件在应用程序的当前驱动器和文件夹中。参数Force可选，如果将其设置为True，则忽略文件的只读标志并删除该文件，Boolean类型，默认值为False。<br>如果指定要删除的文件已经打开，该方法将失败并出现一个“Permission Denied”错误。如果找不到指定的文件，则该方法失败。<br>如果在删除多个文件的过程中出现错误，DeleteFile方法将立即停止删除操作，即不能删除余下的文件部分。该方法不具有撤销产生错误前文件删除操作的返回功能。<br>如果用户有充分的权限，源路径或目标路径可以是网络路径或共享名。<br>注意：DeleteFile方法永久性地删除文件，并不把这些文件移到回收站中。<br>示例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    strfile = Application.<span class="built_in">InputBox</span>(<span class="string">"请输入文件的完整名称:"</span>, <span class="string">"请输入文件的完整名称:"</span>, , , , , , <span class="number">2</span>)</span><br><span class="line">    fso.deletefile strfile</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>GetFile方法</li>
+</ol>
+<p>GetFile方法用来返回一个File对象。<br>其语法为：fso.GetFile (FilePath)<br>参数FilePath必需，指定路径和文件名，String类型。可以是绝对路径或相对路径。如果FilePath是一个共享名或网络路径，GetFile确认该驱动器或共享是File对象创建进程的一部分。如果参数FilePath指定的路径的任何部分不能连接或不存在，就会产生错误。<br>GetFile方法返回的是File对象，而不是TextStream对象。File对象不是打开的文件，主要是用来完成如复制或移动文件和询问文件的属性之类的方法。尽管不能对File对象进行写或读操作，但可以使用File对象的OpenAsTextStream方法获得TextStream对象。<br>要获得所需的FilePath字符串，首先应该使用GetAbsolutePathName方法。如果FilePath包含网络驱动器或共享，可以在调用GetFile方法之前用DriveExists方法来检验所需的驱动器是否可用。<br>因为在FilePath指定的文件不存在时会产生错误，所以应该在调用GetFile之前调用FileExists方法确定文件是否存在。<br>必须用Set语句将File对象赋给一个局部对象变量。<br><strong>具体实例见下面的属性代码</strong></p>
+<ol start="6">
+<li>文件的各种属性</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    strfile = Application.<span class="built_in">InputBox</span>(<span class="string">"请输入文件的完整名称:"</span>, <span class="string">"请输入文件的完整名称:"</span>, , , , , , <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">Set</span> objfile = fso.GetFile(strfile)</span><br><span class="line">    <span class="keyword">If</span> fso.fileexists(strfile) <span class="keyword">Then</span></span><br><span class="line">      </span><br><span class="line">        sReturn = <span class="string">"文件属性： "</span> &amp; objfile.Attributes &amp; vbCrLf</span><br><span class="line">         </span><br><span class="line">        sReturn = sReturn &amp; <span class="string">"文件创建日期： "</span> &amp; objfile.DateCreated &amp; vbCrLf</span><br><span class="line">         </span><br><span class="line">        sReturn = sReturn &amp; <span class="string">"文件修改日期： "</span> &amp; objfile.DateLastModified &amp; vbCrLf</span><br><span class="line">         </span><br><span class="line">        sReturn = sReturn &amp; <span class="string">"文件大小 "</span> &amp; <span class="built_in">FormatNumber</span>(objfile.Size / <span class="number">1024</span>, <span class="number">-1</span>)</span><br><span class="line">         </span><br><span class="line">        sReturn = sReturn &amp; <span class="string">"Kb"</span> &amp; vbCrLf</span><br><span class="line">         </span><br><span class="line">        sReturn = sReturn &amp; <span class="string">"文件类型： "</span> &amp; objfile.Type &amp; vbCrLf</span><br><span class="line"></span><br><span class="line">        <span class="built_in">MsgBox</span> sReturn</span><br><span class="line"></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        <span class="built_in">MsgBox</span> strfile &amp; <span class="string">" :不存在"</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="二、文件夹操作"><a href="#二、文件夹操作" class="headerlink" title="二、文件夹操作"></a>二、文件夹操作</h2><ol>
+<li>判断文件夹是否存在</li>
+</ol>
+<p>FolderExists方法可以判断指定的文件夹是否存在，若存在则返回True。其语法为：<br>fso.FolderExists(FolderSpec)<br>参数FolderSpec指定文件夹的完整路径，String类型，不能包含通配符。<br>如果用户有充分的权限，FolderSpec可以是网络路径或共享名，例如：<br>If fso.FileExists (“\NTSERV1\d$\TestPath&quot;) Then</p>
+<p>示例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    strfile = Application.<span class="built_in">InputBox</span>(<span class="string">"请输入文件的完整名称:"</span>, <span class="string">"请输入文件的完整名称:"</span>, , , , , , <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">If</span> fso.fileexists(strfile) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> strfile &amp; <span class="string">" :存在"</span></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        <span class="built_in">MsgBox</span> strfile &amp; <span class="string">" :不存在"</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>移动</li>
+</ol>
+<p>MoveFolder方法用来移动文件夹，将文件夹及其文件和子文件夹一起从某个位置移动到另一个位置。其语法为：<br>fso.MoveFolder source,destination<br>参数Source指定要移动的文件夹的路径，String类型。参数destination指定文件夹移动操作中目标位置的路径，String类型。<br>Source必须以通配符或非路径分隔符结束，可以使用通配符，但必须出现在最后一部分中。destination不能使用通配符。除非不允许使用通配符，否则源文件夹中所有的子文件夹和文件都被复制到destination指定的位置，也就是说MoveFolder方法是递归的。<br>如果destination用路径分隔符结束或者source用通配符结束，MoveFolder就认为source中指定的文件夹存在于destination中。例如，假设有如下文件夹结构：<br>MoveFolder “C:\Rootone*“,”C:\RootTow&quot;<br>产生如下文件夹结构：<br>MoveFolder “C:\Rootone”,”C:\RootTwo&quot;<br>产生如下文件夹结构：<br>Source和destination可以为绝对路径或相对路径，可以为网络路径或共享名。<br>MoveFile方法在开始操作前先解析source和destination这两个参数。</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sfolder = ThisWorkbook.Path &amp; <span class="string">"\tt"</span></span><br><span class="line">    dfolder = ThisWorkbook.Path &amp; <span class="string">"\txt\"</span></span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> fso.folderexists(sfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">" :不存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">   </span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> fso.folderexists(dfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> dfolder &amp; <span class="string">" :不存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    fso.movefolder sfolder, dfolder</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>拷贝</li>
+</ol>
+<p>CopyFolder方法用于复制文件夹，即将一个文件夹的内容（包括其子文件夹）复制到其他位置。其语法为：<br>fso.CopyFolder Source,Destination[,OverwriteFiles]<br>参数Source必需，指定要复制的文件夹的路径和文件夹名，String类型，必须使用通配符或者非路径分隔符来结束。参数Destination必需，指定文件夹复制操作的目标文件夹的路径，String类型。参数OverwriteFiles可选，表示是否被覆盖一个现有文件的标志，True表示覆盖，False表示不覆盖，Boolean类型。<br>通配符只能在参数Source中使用，但是只能放在最后的组件中。在参数Destination中不能使用通配符。<br>除非不允许使用通配符，否则就可以把源文件夹中的所有子文件夹和文件都复制到Destination指定的文件夹中，也就是说CopyFolder方法是递归的。<br>如果参数Destination以一个路径分隔符结束或者参数Source以一个通配符结束，CopyFolder方法就认为参数Source中的指定的文件夹存在于参数Destination中，否则就创建这样一个文件夹。例如，假设有如下的文件夹结构：<br>CopyFolder “C:\Rootone*“,”C:\RootTwo”<br>产生如下的文件夹结构：<br>CopyFolder “C:\Rootone”,”C:\RootTwo&quot;<br>产生如下的文件夹结构：<br>如果参数Destination指定的目标路径或任意文件被设置成只读属性，则不论OverwriteFiles的值如何，CopyFolder方法者将失效。<br>如果OverwriterFiles设置为False，而参数Source指定的源文件夹或任何文件存在于参数Destination中，将产生运行时错误“文件已经存在”。<br>如果在复制多个文件夹时出现错误，CopyFolder方法立即停止复制操作，不再复制余下要复制的文件。该方法不具有撤销产生错误前文件复制操作的返回功能。<br>如果用户有充分的权限，source或destination都可以是网络路径或共享名，例如：<br>CopyFolder “C:\Rootone”,”\NTSERV1\d$\RootTwo&quot;</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sfolder = ThisWorkbook.Path &amp; <span class="string">"\tt"</span></span><br><span class="line">    dfolder = ThisWorkbook.Path &amp; <span class="string">"\txt\"</span></span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> fso.folderexists(sfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">" :不存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">   </span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> fso.folderexists(dfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> dfolder &amp; <span class="string">" :不存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    fso.copyfolder sfolder, dfolder</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删除文件夹</li>
+</ol>
+<p>DeleteFolder方法用于删除指定的文件夹及其所有的文件和子文件夹。其语法为：<br>fso.DeleteFolder FileSpec[,Force]<br>参数FileSpec必需，指定要删除的文件夹的名称和路径，String类型。在参数FileSpec中，可以在路径的最后部分包含通配符，但不能用路径分隔符结束，可以为相对路径或绝对路径。<br>参数Force可选，Boolean类型，如果设置为True，将忽略文件的只读标志并删除这个文件。默认为False。如果参数Force设置为False并且文件夹中的任意一个文件为只读，则该方法将失败。如果找不到指定的文件夹，则该方法失败。<br>如果指定的文件夹中有文件已经打开，则不能完成删除操作，且产生一个“Permisson Denied”错误。DeleteFolder方法删除指定文件夹中的所有内容，包括其他文件夹及其内容。<br>如果在删除多个文件或文件夹时出现错误，DeleteFolder方法将立即停止删除操作，即不能删除余下的文件夹或文件。该方法不具有撤销产生错误前文件夹删除操作的返回功能。<br>DeleteFolder方法永久性删除文件夹，并不把它们移到回收站中。<br>如果用户有充分的权限，源路径和目标路径可以是网络路径或共享名，例如：<br>DeleteFolder “\RootTest”</p>
+<p>示例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sfolder = ThisWorkbook.Path &amp; <span class="string">"\txt\tt"</span></span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> fso.folderexists(sfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">" :不存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">   </span><br><span class="line">    fso.deletefolder sfolder</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>创建文件夹</li>
+</ol>
+<p>CreateFolder方法用于在指定的路径下创建一个新文件夹，并返回其Folder对象。其语法为：<br>fso.CreateFolder (Path)<br>参数Path必需，为一个返回要创建的新文件夹名的表达式，String类型。Path指定的路径可以是相对路径也可以是绝对路径，如果没有指定路径则使用当前驱动器和目录作为路径。在新的文件夹名中不能使用通配符。<br>如果参数Path指定的路径为只读，则CreateFolder方法将失败；如果参数Path指定的文件夹已经存在，就会产生运行时错误“文件已经存在”。如果用户有充分的权限，则参数Path可以指定为网络路径或共享名，例如：<br>Fso.CreateFolder “\NTSERV1\RootTest\newFolder”<br>示例如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sfolder = ThisWorkbook.Path &amp; <span class="string">"\thisfolder"</span></span><br><span class="line">    <span class="keyword">If</span> fso.folderexists(sfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">" :已经存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">   </span><br><span class="line">    fso.CreateFolder sfolder</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>GetAbsolutePathName方法</li>
+</ol>
+<p>将相对路径转变为一个全限定路径（包括驱动器名），返回一个字符串，包含一个给定的路径说明的绝对路径。其语法为：<br>fso.GetAbsolutePathName (Path)<br>参数Path必需，代表路径说明，String类型。<br>“.”返回当前文件夹的驱动器名和完整路径。“..”返回当前文件夹的父文件夹的驱动器名和路径。“filename”返回当前文件夹中的文件的驱动器名、路径及文件名。<br>所有相对路径名均以当前文件夹为基准。<br>如果没有明确地提供驱动器作为Path的一部分，就以当前驱动器作为Path参数中的驱动器。在Path中可以包含任意个通配符。<br>对于映射网络驱动器和共享而言，这种方法不能返回完整的网络地址，而是返回全限定的本地路径和本地驱动器名。<br>GetAbsolutePathName不能检验指定路径中是否存在某个给定的文件或文件夹</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sfolder = <span class="string">"thisfolder"</span></span><br><span class="line">    <span class="keyword">If</span> fso.folderexists(sfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">" :已经存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">   </span><br><span class="line">    str1 = fso.GetAbsolutePathName(sfolder)</span><br><span class="line">    <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">"  ：的绝对路径为： "</span> &amp; str1</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>GetParentFolderName方法</li>
+</ol>
+<p>返回给定路径中最后部分前的文件夹名，其语法为：<br>fso.GetParentFolderName (Path)<br>参数Path必需，指定路径说明，String类型。<br>如果从Path中不能确定父文件夹名，就返回一个零长字符串（””）。Path可以为相对路径或绝对路径。可以是网络驱动器或共享。<br>GetParentFolderName方法不能检验Path的某个部分是否存在。<br>GetParentFolderName方法认为Path中不属于驱动器说明的那部分字符串除了最后一部分外余下的字符串就是父文件夹。除此之外它不做任何其他检测，更像是一个字符串解析和处理例程而不是与对象处理有关的例程。</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    sfolder = ThisWorkbook.Path &amp; <span class="string">"\tt\"</span></span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> fso.folderexists(sfolder) <span class="keyword">Then</span></span><br><span class="line">        <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">" :不存在"</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">   </span><br><span class="line">    str1 = fso.GetParentFolderName(sfolder)</span><br><span class="line">    <span class="built_in">MsgBox</span> sfolder &amp; <span class="string">"  ：父路径： "</span> &amp; str1</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>GetSpecialFolder方法</li>
+</ol>
+<p>GetSpecialFolder方法返回操作系统文件夹路径，其中0代表Windows文件夹，1代表System（系统）文件夹，2代表Temp（临时）文件夹。其语法为：<br>fso.GetSpecialFolder (SpecialFolder)<br>参数SpecialFolder必需，为特殊的文件夹常数，表示三种特殊系统文件夹中其中一个的值。<br>可以使用Set语句将Folder对象赋给一个局部对象变量，但是如果只对检索特殊的文件夹感兴趣，就可以使用下列语句来实现：<br>sPath=fso.GetSpecialFolder (iFolderConst)<br>或：<br>sPath=fso.GetSpecialFolder (iFolderConst).Path<br>由于Path属性是Folder对象的缺省属性，所认第一个语句有效。因为不是给一个对象变量赋值，所以赋给sPath的值是缺省的Path属性值，而不是对象引用。<br>示例</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Dim</span> strWindowsFolder As <span class="built_in">String</span></span><br><span class="line">    <span class="keyword">Dim</span> strSystemFolder As <span class="built_in">String</span></span><br><span class="line">    <span class="keyword">Dim</span> strTempFolder As <span class="built_in">String</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    strWindowsFolder = fso.GetSpecialFolder(<span class="number">0</span>)</span><br><span class="line">    strSystemFolder = fso.GetSpecialFolder(<span class="number">1</span>)</span><br><span class="line">    strTempFolder = fso.GetSpecialFolder(<span class="number">2</span>)</span><br><span class="line">    <span class="built_in">MsgBox</span> strWindowsFolder &amp; vbCrLf &amp; strSystemFolder &amp; vbCrLf _</span><br><span class="line">    &amp; strTempFolder, vbInformation + vbOKOnly, <span class="string">"Special Folders"</span></span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>GetFolder方法</li>
+</ol>
+<p>GetFolder方法返回Folder对象。其语法为：<br>fso.GetFolder (FolderPath)<br>参数FolderPath必需，指定所需文件夹的路径，String类型，可以为相对路径或绝对路径。如果FolderPath是共享名或网络路径，GetFolder确认该驱动器或共享是File对象创建进程的一部分。如果FolderPath的任何部分不能连接或不存在，就会产生一个错误。<br>要获得所需的Path字符串，首先应该使用GetAbsolutePathName方法。如果FolderPath包含一个网络驱动器或共享，可以在调用GetFolder方法之前使用DriveExists方法确认指定的驱动器是否可用。由于GetFolder方法要求FolderPath是一个有效文件夹的路径，所以应调用FolderExists方法来检验FolderPath是否存在。<br>必须使用Set语句将Folder对象赋给一个局部对象变量。<br>具体实例见楼下 属性获取</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 按钮<span class="number">1</span>_Click()</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">Dim</span> sReturn As <span class="built_in">String</span></span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    <span class="keyword">Set</span> folder1 = fso.GetFolder(ThisWorkbook.Path &amp; <span class="string">"\"</span>)</span><br><span class="line">    sReturn = <span class="string">"文件夹属性： "</span> &amp; folder1.Attributes &amp; vbCrLf</span><br><span class="line">    <span class="comment">'获取最近一次访问的时间</span></span><br><span class="line">    sReturn = sReturn &amp; <span class="string">"创建时间： "</span> &amp; folder1.Datecreated &amp; vbCrLf</span><br><span class="line">    sReturn = sReturn &amp; <span class="string">"最后访问时间： is "</span> &amp; folder1.DateLastAccessed &amp; vbCrLf</span><br><span class="line">    <span class="comment">'获取最后一次修改的时间</span></span><br><span class="line">    sReturn = sReturn &amp; <span class="string">"最后修改时间： "</span> &amp; folder1.DateLastModified &amp; vbCrLf</span><br><span class="line">    <span class="comment">'获取文件夹的大小</span></span><br><span class="line">    sReturn = sReturn &amp; <span class="string">"文件夹大小： "</span> &amp; <span class="built_in">FormatNumber</span>(folder1.Size / <span class="number">1024</span>, <span class="number">0</span>)</span><br><span class="line">    sReturn = sReturn &amp; <span class="string">"Kb"</span> &amp; vbCrLf</span><br><span class="line">    <span class="comment">'判断文件或文件夹类型</span></span><br><span class="line">    sReturn = sReturn &amp; <span class="string">"类型为： "</span> &amp; folder1.Type &amp; vbCrLf</span><br><span class="line">    <span class="built_in">MsgBox</span> sReturn</span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三、另一牛人的代码-跟我学-【喜迎2015立春】遍历文件夹-含子文件夹-方法-ABC"><a href="#三、另一牛人的代码-跟我学-【喜迎2015立春】遍历文件夹-含子文件夹-方法-ABC" class="headerlink" title="三、另一牛人的代码- 跟我学 【喜迎2015立春】遍历文件夹(含子文件夹)方法 ABC"></a>三、另一牛人的代码- <strong>跟我学 【喜迎2015立春】遍历文件夹(含子文件夹)方法 ABC</strong></h2><p>以下内容摘自另一牛人香川群子的<a href="http://club.excelhome.net/thread-1185089-1-1.html" target="_blank" rel="noopener">文章</a>，其中FSO操作代码简洁，带有弹出框选择目标位置，也摘录下来：</p>
+<p>首先要介绍，在VBA代码运行以后，调用【目标文件夹】的方法：</p>
+<p>① 微软Excel VBA 默认选择文件夹的Dialog对话框</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesTest()</span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker) <span class="comment">'运行后出现标准的选择文件夹对话框        </span></span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span> <span class="comment">'如选中则返回=-1 / 取消未选则返回=0 </span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span> </span><br><span class="line">    <span class="comment">'返回的是选中目标文件夹的绝对路径,但除了本地C盘、D盘会以"C:"形式返回外，其余路径无""需要自己添加 </span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>② 视窗浏览器界面选择目标文件夹</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesTest()</span><br><span class="line">    <span class="keyword">Set</span> myFolder = <span class="built_in">CreateObject</span>(<span class="string">"Shell.Application"</span>).BrowseForFolder(<span class="number">0</span>, <span class="string">"GetFolder"</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> myFolder <span class="keyword">Is</span> <span class="literal">Nothing</span> <span class="keyword">Then</span> myPath$ = myFolder.Items.Item.Path <span class="keyword">Else</span> <span class="built_in">MsgBox</span> <span class="string">"Folder not Selected"</span>: <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    <span class="comment">'同样返回的是选中目标文件夹的绝对路径,但除了本地C盘、D盘会以"C:"形式返回外，其余路径无""需要添加 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>这两种选择目标文件夹的方法，总的效果应该都不错。<br>方法-1 默认Dialog对话框左侧栏有桌面、我的文档等快捷方式，也比较符合一般人的使用习惯。<br>优点是，本层文件夹内的子文件夹全部以大图标方式列出（也可以改为列表）看起来较为轻松。<br>缺点是，如果有多层子文件夹，需要一层一层地点下去……似乎比较累一点。</p>
+<p>与此相对、方法-2 是浏览器形式，点击+号可以展开、点击-号可以折叠。<br>因此也有很多人特别喜欢这一种的，尤其是有多层子文件夹时很方便。</p>
+<ol>
+<li>仅列出目标文件夹中所有文件。（不包括 子文件夹、不包括子文件夹中的文件）</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesTest()</span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker)</span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath$ = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    <span class="comment">'以上选择目标文件夹以得到路径myPath</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">MsgBox</span> ListFiles(myPath)    <span class="comment">'调用FSO的ListFiles过程返回目标文件夹下的所有文件名</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Function</span> ListFiles(myPath$)</span><br><span class="line">   <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>) <span class="comment">'打开FSO脚本、建立FSO对象实例</span></span><br><span class="line">   <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> fso.GetFolder(myPath).Files  <span class="comment">'用FSO方法遍历指定文件夹内所有文件</span></span><br><span class="line">      i = i + <span class="number">1</span>: s = s &amp; vbCr &amp; f.Name            <span class="comment">'逐个列出文件名并统计文件个数 i</span></span><br><span class="line">   <span class="keyword">Next</span></span><br><span class="line">   ListFiles = i &amp; <span class="string">" Files:"</span> &amp; s  <span class="comment">'返回所有文件名的合并字符串</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>知识介绍：<br>Set fso = CreateObject(“Scripting.FileSystemObject”)<br>建立FSO 即【文件系统对象】的实例。</p>
+<p>这以后，即可简单、直接地引用fso的各种属性（有时间可以自己慢慢研究）</p>
+<p>For Each f In fso.GetFolder(myPath).Files<br>‘用FSO方法遍历指定文件夹内所有文件</p>
+<p>fso.GetFolder(myPath) 是指对于路径myPath，使用FSO对象方法得到其文件夹.GetFolder属性<br>然后，对于这个指定的目标文件夹，继续返回其所有文件的属性、即.Files<br>完整的部分为： fso.GetFolder(myPath).Files</p>
+<p>然后，对于这个所有文件的集合即 fso.GetFolder(myPath).Files<br>通过For……Each循环就可以遍历其中每一个文件了。</p>
+<p>具体地，For Each f In 中的f变量，即为每一个文件。<br>循环中，可以使用f的各种属性。 f.Name只是其中的一种属性=文件名。</p>
+<ol start="2">
+<li>仅列出目标文件夹中所有子文件夹名。（不包括目标文件夹中文件、不包括子文件夹中的文件或子文件夹）</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesTest()</span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker)</span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath$ = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">MsgBox</span> ListFolders(myPath)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">Function</span> ListFolders(myPath$)</span><br><span class="line">   <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">   <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> fso.GetFolder(myPath).SubFolders</span><br><span class="line">      j = j + <span class="number">1</span>: t = t &amp; vbCr &amp; f.Name</span><br><span class="line">   <span class="keyword">Next</span></span><br><span class="line">   ListFolders = j &amp; <span class="string">" Folders:"</span> &amp; t</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>和楼上的代码ListFiles相比，差异很小，仅在于：<br>fso.GetFolder(myPath).Files<br>fso.GetFolder(myPath).SubFolders</p>
+<p>即，把目标文件夹fso.GetFolder(myPath)的属性，<br>有.Files 所有文件、改为 .SubFolders 所有子文件夹</p>
+<ol start="3">
+<li>遍历目标文件夹内所有文件、以及所有子文件夹中的所有文件</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesTest()</span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker)</span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath$ = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    [a:a] = <span class="string">""</span>                    <span class="comment">'清空A列</span></span><br><span class="line">    <span class="keyword">Call</span> ListAllFso(myPath)   <span class="comment">'调用FSO遍历子文件夹的递归过程</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Function</span> ListAllFso(myPath$) <span class="comment">'用FSO方法遍历并列出所有文件和文件夹名的【递归过程】</span></span><br><span class="line">    <span class="keyword">Set</span> fld = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>).GetFolder(myPath)</span><br><span class="line">    <span class="comment">'用FSO方法得到当前路径的文件夹对象实例 注意这里的【当前路径myPath是个递归变量】</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> fld.Files  <span class="comment">'遍历当前文件夹内所有【文件.Files】</span></span><br><span class="line">        [a65536].<span class="keyword">End</span>(<span class="number">3</span>).Offset(<span class="number">1</span>) = f.Name <span class="comment">'在A列逐个列出文件名</span></span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">For</span> <span class="keyword">Each</span> fd <span class="keyword">In</span> fld.SubFolders  <span class="comment">'遍历当前文件夹内所有【子文件夹.SubFolders】</span></span><br><span class="line">        [a65536].<span class="keyword">End</span>(<span class="number">3</span>).Offset(<span class="number">1</span>) = <span class="string">" "</span> &amp; fd.Name &amp; <span class="string">""</span>  <span class="comment">'在A列逐个列出子文件夹名</span></span><br><span class="line">        <span class="keyword">Call</span> ListAllFso(fd.Path)       <span class="comment">'注意此时的路径变量已经改变为【子文件夹的路径fd.Path】</span></span><br><span class="line">        <span class="comment">'注意重点在这里： 继续向下调用递归过程【遍历子文件夹内所有文件文件夹对象】</span></span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>由于很多初学者不太能理解递归算法的过程而产生畏难、抵触情绪，<br>所以下面避开递归，而采用字典记录中间结果的方法，同样来达到遍历所所有子文件的目的(不过个人觉得还不如递归呢)：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesTest()</span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker)</span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath$ = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="string">"List Files:"</span> &amp; vbCr &amp; <span class="built_in">Join</span>(ListAllFsoDic(myPath), vbCr)</span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="string">"List SubFolders:"</span> &amp; vbCr &amp; <span class="built_in">Join</span>(ListAllFsoDic(myPath, <span class="number">1</span>), vbCr)</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Function</span> ListAllFsoDic(myPath$, Optional k = <span class="number">0</span>) <span class="comment">'使用2个字典但无需递归的遍历过程</span></span><br><span class="line">    <span class="keyword">Dim</span> i&amp;, j&amp;</span><br><span class="line">    <span class="keyword">Set</span> d1 = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.Dictionary"</span>) <span class="comment">'字典d1记录子文件夹的绝对路径名    </span></span><br><span class="line">    <span class="keyword">Set</span> d2 = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.Dictionary"</span>) <span class="comment">'字典d2记录文件名 （文件夹和文件分开处理）</span></span><br><span class="line"></span><br><span class="line">    d1(myPath) = <span class="string">""</span>           <span class="comment">'以当前路径myPath作为起始记录，以便开始循环检查</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">Set</span> fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">    <span class="keyword">Do</span> <span class="keyword">While</span> i &lt; d1.Count</span><br><span class="line">    <span class="comment">'当字典1文件夹中有未遍历处理的key存在时进行Do循环 直到 i=d1.Count即所有子文件夹都已处理时停止</span></span><br><span class="line"></span><br><span class="line">        kr = d1.Keys <span class="comment">'取出文件夹中所有的key即所有子文件夹路径 （注意每次都要更新）</span></span><br><span class="line">        <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> fso.GetFolder(kr(i)).Files <span class="comment">'遍历该子文件夹中所有文件 （注意仅从新的kr(i) 开始）</span></span><br><span class="line">            j = j + <span class="number">1</span>: d2(j) = f.Name</span><br><span class="line">           <span class="comment">'把该子文件夹内的所有文件名作为字典Item项加入字典d2 (为防止文件重名不能用key属性)</span></span><br><span class="line">        <span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line">        i = i + <span class="number">1</span> <span class="comment">'已经处理过的子文件夹数目 i +1 （避免下次产生重复处理）</span></span><br><span class="line">        <span class="keyword">For</span> <span class="keyword">Each</span> fd <span class="keyword">In</span> fso.GetFolder(kr(i - <span class="number">1</span>)).SubFolders <span class="comment">'遍历该文件夹中所有新的子文件夹</span></span><br><span class="line">            d1(fd.Path) = <span class="string">" "</span> &amp; fd.Name &amp; <span class="string">""</span> </span><br><span class="line">            <span class="comment">'把新的子文件夹路径存入字典d1以便在下一轮循环中处理</span></span><br><span class="line">        <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">Loop</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">If</span> k <span class="keyword">Then</span> ListAllFsoDic = d1.Keys <span class="keyword">Else</span> ListAllFsoDic = d2.Items</span><br><span class="line">    <span class="comment">'如果参数=1则列出字典d1中所有子文件夹的路径名 (如使用d1.Items则仅列出子文件夹名称不含路径)</span></span><br><span class="line">    <span class="comment">'如果参数=0则默认列出字典d2中Items即所有文件名 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>作为本帖的特色，介绍使用VBA语句直接调用Dos中Dir命令来搜寻文件名的方法：(个人感觉不如FSO)</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesDos()</span><br><span class="line">    <span class="keyword">Set</span> myFolder = <span class="built_in">CreateObject</span>(<span class="string">"Shell.Application"</span>).BrowseForFolder(<span class="number">0</span>, <span class="string">"GetFolder"</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> myFolder <span class="keyword">Is</span> <span class="literal">Nothing</span> <span class="keyword">Then</span> myPath$ = myFolder.Items.Item.Path <span class="keyword">Else</span> <span class="built_in">MsgBox</span> <span class="string">"Folder not Selected"</span>: <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    </span><br><span class="line">    myFile$ = <span class="built_in">InputBox</span>(<span class="string">"Filename"</span>, <span class="string">"Find File"</span>, <span class="string">".xl"</span>)</span><br><span class="line">    <span class="comment">'在这里输入需要指定的关键字，可以是文件名的一部分，或指定文件类型如 ".xl"</span></span><br><span class="line">    tms = <span class="built_in">Timer</span></span><br><span class="line">    <span class="keyword">With</span> <span class="built_in">CreateObject</span>(<span class="string">"Wscript.Shell"</span>) <span class="comment">'VBA调用Dos命令</span></span><br><span class="line">        ar = <span class="built_in">Split</span>(.exec(<span class="string">"cmd /c dir /a-d /b /s "</span> &amp; <span class="built_in">Chr</span>(<span class="number">34</span>) &amp; myPath &amp; <span class="built_in">Chr</span>(<span class="number">34</span>)).StdOut.ReadAll, vbCrLf) <span class="comment">'所有文档含子文件夹</span></span><br><span class="line">        <span class="comment">'指定Dos中Dir命令的开关然后提取结果 为指定文件夹以及所含子文件夹内的所有文件的含路径全名。</span></span><br><span class="line">        s = <span class="string">"from "</span> &amp; <span class="built_in">UBound</span>(ar) &amp; <span class="string">" Files by Search time: "</span> &amp; Format(<span class="built_in">Timer</span> - tms, <span class="string">" 0.00s"</span>) &amp; <span class="string">" in: "</span> &amp; myPath</span><br><span class="line">        <span class="comment">'记录Dos中执行Dir命令的耗时</span></span><br><span class="line">        tms = <span class="built_in">Timer</span>: ar = <span class="built_in">Filter</span>(ar, myFile) <span class="comment">'然后开始按指定关键词进行筛选。可筛选文件名或文件类型</span></span><br><span class="line">        Application.StatusBar = Format(<span class="built_in">Timer</span> - tms, <span class="string">"0.00s"</span>) &amp; <span class="string">" Find "</span> &amp; <span class="built_in">UBound</span>(ar) + IIf(myFile = <span class="string">""</span>, <span class="number">0</span>, <span class="number">1</span>) &amp; <span class="string">" Files "</span> &amp; s</span><br><span class="line">        <span class="comment">'在Excel状态栏上显示执行结果以及耗时</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    [a:a] = <span class="string">""</span>: <span class="keyword">If</span> <span class="built_in">UBound</span>(ar) &gt; <span class="number">-1</span> <span class="keyword">Then</span> [a2].Resize(<span class="number">1</span> + <span class="built_in">UBound</span>(ar)) = WorksheetFunction.Transpose(ar)</span><br><span class="line">    <span class="comment">'清空A列，然后输出结果</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>呵呵，Dos命令不仅简洁，而且高效。  </p>
+<p>追加更正：提去文件个数统计 提取文件结果的数组ar是下标 0开始的1维数组，元素个数应该=UBound(ar)+1 【此处修正+1为ar(0)】 但实际未产生筛选时的文件结果数=UBound(ar) 无需+1 【因为Dos提取时Dir最后1个””也在结果之中】 而当指定筛选参数myFile不为空时，即产生实际筛选以后的数组ar中会排除最后的那个””,所以筛选后的统计文件结果数=UBound(ar) + 1</p>
+<p>关于Dos中Dir命令的开关问题：</p>
+<p>【提取文档】<br>.Exec(“cmd /c dir /a-d /b “ ………Dir返回指定文件夹下【不包括子文件夹】的所有文档名（不含文件夹）<br>.Exec(“cmd /c dir /a-d /b /s “ ………Dir返回指定文件夹下【包括子文件夹】在内的所有文档名（不含文件夹）</p>
+<p>其中， /s 即 是否包含 SubFolder的意思<br>而 /a-d 是文件对象中排除文件夹目录(-d)只剩下文档的意思。</p>
+<p>【提取文件夹】<br>.Exec(“cmd /c dir /a-a /b “ ………Dir返回指定文件夹下【不包括子文件夹】内的所有子文件夹名（不含文档）<br>.Exec(“cmd /c dir /a-a /b /s “ ………Dir返回指定文件夹下【包括子文件夹】内的所有子文件夹名（不含文档）<br>而 /a-a 是文件对象中排除文档(-a)只剩下文件夹目录的意思。</p>
+<p>【提取文档和文件夹】<br>.Exec(“cmd /c dir /b “ ………Dir返回指定文件夹下【不包括子文件夹】的所有【文档名】和【文件夹名】<br>.Exec(“cmd /c dir /b /s “ ………Dir返回指定文件夹下【包括子文件夹】的所有【文档名】和【文件夹名】</p>
+<p>呵呵，以上6种的开关组合就足够了。<br>补充：Dos Dir开关的帮助文件：</p>
+<p>显示目录中的文件和子目录列表。</p>
+<p>DIR [drive:][path][filename] [/A[[:]attributes]] [/B] [/C] [/D] [/L] [/N]<br> [/O[[:]sortorder]] [/P] [/Q] [/S] [/T[[:]timefield]] [/W] [/X] [/4]</p>
+<p> [drive:][path][filename]<br>         指定要列出的驱动器、目录和/或文件。</p>
+<p> /A      显示具有指定属性的文件。<br> attributes  D 目录          R 只读文件<br>          H 隐藏文件        A 准备存档的文件<br>          S 系统文件       - 表示“否”的前缀<br>/B      使用空格式(没有标题信息或摘要)。<br> /C      在文件大小中显示千位数分隔符。这是默认值。用 /-C 来<br>         停用分隔符显示。<br> /D      跟宽式相同，但文件是按栏分类列出的。<br> /L      用小写。<br> /N      新的长列表格式，其中文件名在最右边。<br> /O      用分类顺序列出文件。<br> sortorder  N 按名称(字母顺序)   S 按大小(从小到大)<br>          E 按扩展名(字母顺序)  D 按日期/时间(从先到后)<br>          G 组目录优先       - 颠倒顺序的前缀<br> /P      在每个信息屏幕后暂停。<br> /Q      显示文件所有者。<br> /S      显示指定目录和所有子目录中的文件。<br> /T      控制显示或用来分类的时间字符域。<br> timefield  C 创建时间<br>         A 上次访问时间<br>         W 上次写入的时间<br> /W      用宽列表格式。<br> /X      显示为非 8dot3 文件名产生的短名称。格式是 /N 的格式，<br>         短名称插在长名称前面。如果没有短名称，在其位置则<br>         显示空白。<br> /4      用四位数字显示年</p>
+<p>可以在 DIRCMD 环境变量中预先设定开关。通过添加前缀 - (破折号)<br>来替代预先设定的开关。例如，/-W。</p>
+<p>前面的Dir代码，是两个Do循环嵌套使用，<br>一边检查当前文件夹内的子文件夹，一边检查当前文件夹内的文件。</p>
+<p>其实，Dir方法也可以这么写代码：<br>① 检查并列出所有子文件夹<br>② 然后根据需要遍历所有子文件夹中的文件</p>
+<p>即，两个Do循环是分开来的。<br>但是、第2次的Do循环需要外套For循环遍历所有已知子文件夹。</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesDir()</span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker)</span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath$ = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="built_in">Join</span>(ListAllDir(myPath), vbCr) <span class="comment">'GetAllSubFolder's File</span></span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="built_in">Join</span>(ListAllDir(myPath, <span class="number">1</span>), vbCr) <span class="comment">'GetThisFolder's File</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="built_in">Join</span>(ListAllDir(myPath, <span class="number">-1</span>), vbCr) <span class="comment">'GetThisFolder's SubFolder</span></span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="built_in">Join</span>(ListAllDir(myPath, <span class="number">-2</span>), vbCr) <span class="comment">'GetAllSubFolder</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="built_in">Join</span>(ListAllDir(myPath, , <span class="string">"tst"</span>), vbCr) <span class="comment">'GetAllSubFolder's SpecialFile</span></span><br><span class="line">    <span class="built_in">MsgBox</span> <span class="built_in">Join</span>(ListAllDir(myPath, <span class="number">1</span>, <span class="string">"tst"</span>), vbCr) <span class="comment">'GetThisFolder's SpecialFile</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Function</span> ListAllDir(myPath$, Optional sb&amp; = <span class="number">0</span>, Optional SpFile$ = <span class="string">""</span>)</span><br><span class="line">    <span class="keyword">Dim</span> i&amp;, j&amp;, k&amp;, myFile$</span><br><span class="line">    <span class="keyword">ReDim</span> fld(<span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    fld(<span class="number">0</span>) = myPath</span><br><span class="line">    <span class="keyword">On</span> <span class="keyword">Error</span> <span class="keyword">Resume</span> <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">Do</span></span><br><span class="line">        myFile = Dir(fld(i), vbDirectory)</span><br><span class="line">        <span class="keyword">Do</span> <span class="keyword">While</span> myFile &lt;&gt; <span class="string">""</span></span><br><span class="line">            <span class="keyword">If</span> myFile &lt;&gt; <span class="string">"."</span> <span class="keyword">And</span> myFile &lt;&gt; <span class="string">".."</span> <span class="keyword">Then</span></span><br><span class="line">                <span class="keyword">If</span> (GetAttr(fld(i) &amp; myFile) <span class="keyword">And</span> vbDirectory) = vbDirectory <span class="keyword">Then</span></span><br><span class="line">                    <span class="keyword">If</span> <span class="built_in">Err</span>.Number <span class="keyword">Then</span> <span class="built_in">Err</span>.Clear <span class="keyword">Else</span> j = j + <span class="number">1</span>: <span class="keyword">ReDim</span> <span class="keyword">Preserve</span> fld(j): fld(j) = fld(i) &amp; myFile &amp; <span class="string">""</span></span><br><span class="line">                <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">            myFile = Dir</span><br><span class="line">        <span class="keyword">Loop</span></span><br><span class="line">        <span class="keyword">If</span> sb Mod <span class="number">2</span> <span class="keyword">Then</span> <span class="keyword">Exit</span> <span class="keyword">Do</span> <span class="keyword">Else</span> i = i + <span class="number">1</span></span><br><span class="line">    <span class="keyword">Loop</span> Until i &gt; <span class="built_in">UBound</span>(fld)</span><br><span class="line">    <span class="keyword">If</span> sb &lt; <span class="number">0</span> <span class="keyword">And</span> <span class="built_in">Len</span>(SpFile) = <span class="number">0</span> <span class="keyword">Then</span> ListAllDir = fld: <span class="keyword">Exit</span> <span class="keyword">Function</span></span><br><span class="line">    <span class="comment">'以上为止，遍历检查并列出指定目标文件夹中、所有的子文件夹。</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">'以下为遍历已获得的子文件夹数组fld 然后Dir循环检查其中所有的文件</span></span><br><span class="line">    <span class="keyword">ReDim</span> file(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="built_in">UBound</span>(fld)</span><br><span class="line">        myFile = Dir(fld(i), vbDirectory)</span><br><span class="line">        <span class="keyword">Do</span> <span class="keyword">While</span> myFile &lt;&gt; <span class="string">""</span></span><br><span class="line">            <span class="keyword">If</span> myFile &lt;&gt; <span class="string">"."</span> <span class="keyword">And</span> myFile &lt;&gt; <span class="string">".."</span> <span class="keyword">Then</span></span><br><span class="line">                <span class="keyword">If</span> <span class="keyword">Not</span> (GetAttr(fld(i) &amp; myFile) <span class="keyword">And</span> vbDirectory) = vbDirectory <span class="keyword">Then</span></span><br><span class="line">                    <span class="keyword">If</span> SpFile = <span class="string">""</span> <span class="keyword">Then</span></span><br><span class="line">                        file(k) = myFile: k = k + <span class="number">1</span>: <span class="keyword">ReDim</span> <span class="keyword">Preserve</span> file(k)</span><br><span class="line">                    <span class="keyword">Else</span></span><br><span class="line">                        <span class="keyword">If</span> <span class="built_in">InStr</span>(myFile, SpFile) <span class="keyword">Then</span> file(k) = myFile: k = k + <span class="number">1</span>: <span class="keyword">ReDim</span> <span class="keyword">Preserve</span> file(k)</span><br><span class="line">                    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">                <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">            myFile = Dir</span><br><span class="line">        <span class="keyword">Loop</span></span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line">    ListAllDir = file</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>一般说，还是第1种两个Do嵌套的方法好……虽然代码中需要同时处理文件夹和文件名，但Do循环比较高效一些。</p>
+<p>第2种方法也并非全无是处。<br>当处理文件为重点时，以第2种方法比较好。</p>
+<p>Dos版 加入Dir各种参数以后的完整代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> ListFilesDos()</span><br><span class="line">    myMode&amp; = Val(<span class="built_in">InputBox</span>(<span class="string">"Search Mode:-3 To 3"</span>, <span class="string">"Find File"</span>, <span class="number">0</span>)) <span class="comment">'指定Dos Dir的查找开关、返回模式</span></span><br><span class="line">    <span class="comment">'奇数为不含子文件夹、偶数为含子文件夹 / 负数为目录、正数为文档 / &gt;1为文档及目录</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">If</span> myMode &gt; <span class="number">-3</span> <span class="keyword">Then</span></span><br><span class="line">        myFile$ = <span class="built_in">InputBox</span>(<span class="string">"Part of Filename or Filetype as "".xl"""</span>, <span class="string">"Find File"</span>, <span class="string">".xl"</span>)</span><br><span class="line">        <span class="comment">'输入指定关键字，可以是文件(文档和目录)名称中的任意部分，或指定文件类型如 ".xl"</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">Set</span> myFolder = <span class="built_in">CreateObject</span>(<span class="string">"Shell.Application"</span>).BrowseForFolder(<span class="number">0</span>, <span class="string">"GetFolder"</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">If</span> <span class="keyword">Not</span> myFolder <span class="keyword">Is</span> <span class="literal">Nothing</span> <span class="keyword">Then</span> myPath$ = myFolder.Items.Item.path <span class="keyword">Else</span> <span class="built_in">MsgBox</span> <span class="string">"Folder not Selected"</span>: <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">        <span class="comment">'浏览列表指定查找目录</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    tms = <span class="built_in">Timer</span></span><br><span class="line">    <span class="keyword">With</span> <span class="built_in">CreateObject</span>(<span class="string">"Wscript.Shell"</span>) <span class="comment">'VBA调用Dos命令</span></span><br><span class="line">　　cmdStr = Choose(myMode + <span class="number">4</span>, <span class="string">"/? "</span>, <span class="string">"/a:d /b /s "</span>, <span class="string">"/a:d /b "</span>, <span class="string">"/a:a /b /s "</span>, <span class="string">"/a:a /b "</span>, <span class="string">"/b /s "</span>, <span class="string">"/b "</span>, <span class="string">"/a:a /o:e /o:n /s "</span>, <span class="string">"/a:a /o:e /o:n "</span>, <span class="string">"/a:d /o:e /o:n /s "</span>, <span class="string">"/a:d /o:e /o:n "</span>)</span><br><span class="line">        ar = <span class="built_in">Split</span>(.exec(<span class="string">"cmd /c dir "</span> &amp; cmdStr &amp; <span class="built_in">Chr</span>(<span class="number">34</span>) &amp; myPath &amp; <span class="built_in">Chr</span>(<span class="number">34</span>)).StdOut.ReadAll, vbCrLf)</span><br><span class="line">        <span class="comment">'指定Dos中Dir命令的开关然后提取结果 为指定文件夹以及所含子文件夹内的所有文件的含路径全名。</span></span><br><span class="line">        </span><br><span class="line">        s = <span class="built_in">UBound</span>(ar) &amp; <span class="string">" Files by Search time: "</span> &amp; Format(<span class="built_in">Timer</span> - tms, <span class="string">" 0.00s"</span>) &amp; <span class="string">" in: "</span> &amp; myPath</span><br><span class="line">        Application.StatusBar = <span class="string">" Find "</span> &amp; s: tms = <span class="built_in">Timer</span> <span class="comment">'记录Dos中执行Dir命令的耗时 并在Excel状态栏上显示</span></span><br><span class="line">        <span class="keyword">If</span> myFile &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> <span class="comment">'如指定了匹配关键字则</span></span><br><span class="line">            ar = <span class="built_in">Filter</span>(ar, myFile) <span class="comment">'按指定关键词myFile进行筛选。可筛选文件名或文件类型、然后在Excel状态栏上显示结果</span></span><br><span class="line">            Application.StatusBar = Format(<span class="built_in">Timer</span> - tms, <span class="string">"0.00s"</span>) &amp; <span class="string">" Find "</span> &amp; <span class="number">1</span> + <span class="built_in">UBound</span>(ar) &amp; <span class="string">" Files from "</span> &amp; s</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    [a:a] = <span class="string">""</span>: <span class="keyword">If</span> <span class="built_in">UBound</span>(ar) &gt; <span class="number">-1</span> <span class="keyword">Then</span> [a2].Resize(<span class="number">1</span> + <span class="built_in">UBound</span>(ar)) = WorksheetFunction.Transpose(ar)</span><br><span class="line"><span class="comment">'    清空A列，然后输出结果</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>为大家看得清楚明白，把各种开关写成Select形式：</p>
+<p>​     Select Case myMode ‘根据开关模式设置Dos Dir的开关参数<br>​        Case -3<br>​          cmdStr = “cmd /c dir /?” ‘列出Dir各个参数开关的帮助文件<br>​        Case -2<br>​          cmdStr = “cmd /c dir /a-a /b /s “ &amp; Chr(34) &amp; myPath &amp; Chr(34) ‘目录不含文档[/a-a]含子文件夹<br>​        Case -1<br>​          cmdStr = “cmd /c dir /a-a /b “ &amp; Chr(34) &amp; myPath &amp; Chr(34) ‘目录不含文档<a href="不含子文件夹">/a-a</a><br>​        Case 0<br>​          cmdStr = “cmd /c dir /a-d /b /s “ &amp; Chr(34) &amp; myPath &amp; Chr(34) ‘文档不含目录[/a-d]含子文件夹<br>​        Case 1<br>​          cmdStr = “cmd /c dir /a-d /b “ &amp; Chr(34) &amp; myPath &amp; Chr(34) ‘文档不含目录<a href="不含子文件夹">/a-d</a><br>​        Case 2<br>​          cmdStr = “cmd /c dir /b /s “ &amp; Chr(34) &amp; myPath &amp; Chr(34) ‘所有文档及目录含子文件夹<br>​        Case 3<br>​          cmdStr = “cmd /c dir /a-d /b “ &amp; Chr(34) &amp; myPath &amp; Chr(34) ‘所有文档及目录(不含子文件夹)<br>​     End Select</p>
+<p>但实际代码中用Choose语句简化。</p>
+<ol start="5">
+<li>FSO 递归方法实现各种指定搜寻的完整代码：</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> jg(), k&amp;, tms# <span class="comment">'因为是递归，所以事先指定存放结果的公用变量数组jg以及计数器k和起始时间tms</span></span><br><span class="line"><span class="keyword">Sub</span> ListFilesFso()</span><br><span class="line">    sb&amp; = <span class="built_in">InputBox</span>(<span class="string">"Search Type: AllFiles=0/Files=1/Folder=-1/All Folder=-2"</span>, <span class="string">"Find Files"</span>, <span class="number">0</span>) <span class="comment">'选定返回模式</span></span><br><span class="line">    SpFile$ = <span class="built_in">InputBox</span>(<span class="string">"匹配文件名或文件类型"</span>, <span class="string">"Find Files"</span>, <span class="string">".xl"</span>) <span class="comment">'指定匹配要求，留空则匹配全部</span></span><br><span class="line">    <span class="keyword">If</span> SpFile Like <span class="string">".*"</span> <span class="keyword">Then</span> SpFile = <span class="built_in">LCase</span>(SpFile) &amp; <span class="string">"*"</span> <span class="comment">'如果指定了文件类型则一律转换为大写字母方便比较</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">With</span> Application.FileDialog(msoFileDialogFolderPicker)</span><br><span class="line">        <span class="keyword">If</span> .Show <span class="keyword">Then</span> myPath$ = .SelectedItems(<span class="number">1</span>) <span class="keyword">Else</span> <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">ReDim</span> jg(<span class="number">65535</span>, <span class="number">3</span>)</span><br><span class="line">    jg(<span class="number">0</span>, <span class="number">0</span>) = <span class="string">"Ext"</span>: jg(<span class="number">0</span>, <span class="number">1</span>) = IIf(sb &lt; <span class="number">0</span>, IIf(<span class="built_in">Len</span>(SpFile), <span class="string">"Filename"</span>, <span class="string">"No"</span>), <span class="string">"Filename"</span>)</span><br><span class="line">    jg(<span class="number">0</span>, <span class="number">2</span>) = <span class="string">"Folder"</span>: jg(<span class="number">0</span>, <span class="number">3</span>) = <span class="string">"Path"</span></span><br><span class="line">    <span class="comment">'定义存放文件名结果的数组jg 、并写入标题</span></span><br><span class="line">    tms = <span class="built_in">Timer</span>: k = <span class="number">0</span>: <span class="keyword">Call</span> ListAllFso(myPath, sb, SpFile) <span class="comment">'调用递归过程检查指定文件夹及其子文件夹</span></span><br><span class="line">    <span class="keyword">If</span> sb &lt; <span class="number">0</span> <span class="keyword">And</span> <span class="built_in">Len</span>(SpFile) = <span class="number">0</span> <span class="keyword">Then</span> Application.StatusBar = <span class="string">"Get "</span> &amp; k &amp; <span class="string">" Folders."</span></span><br><span class="line">    [a1].CurrentRegion = <span class="string">""</span>: [a1].Resize(k + <span class="number">1</span>, <span class="number">4</span>) = jg: [a1].CurrentRegion.AutoFilter Field:=<span class="number">1</span></span><br><span class="line">    <span class="comment">'输出结果到工作表，并启用筛选模式</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Function</span> ListAllFso(myPath$, Optional sb&amp; = <span class="number">0</span>, Optional SpFile$ = <span class="string">""</span>) <span class="comment">'递归检查子文件夹的过程代码</span></span><br><span class="line">    <span class="keyword">Set</span> fld = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>).GetFolder(myPath)</span><br><span class="line">    <span class="keyword">On</span> <span class="keyword">Error</span> <span class="keyword">Resume</span> <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">If</span> sb &gt;= <span class="number">0</span> <span class="keyword">Or</span> <span class="built_in">Len</span>(SpFile) <span class="keyword">Then</span> <span class="comment">'如果模式为0或1、或指定了匹配文件要求，则遍历各个文件</span></span><br><span class="line">        <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> fld.Files <span class="comment">'用FSO方法遍历文件.Files</span></span><br><span class="line">            t = <span class="literal">False</span> <span class="comment">'匹配状态初始化</span></span><br><span class="line">            n = <span class="built_in">InStrRev</span>(f.Name, <span class="string">"."</span>): fnm = <span class="built_in">Left</span>(f.Name, n - <span class="number">1</span>): x = <span class="built_in">LCase</span>(<span class="built_in">Mid</span>(f.Name, n))</span><br><span class="line">            <span class="keyword">If</span> <span class="built_in">Err</span>.Number <span class="keyword">Then</span> <span class="built_in">Err</span>.Clear</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">If</span> SpFile = <span class="string">" "</span> <span class="keyword">Then</span> <span class="comment">'Space 如果匹配要求为空则匹配全部</span></span><br><span class="line">                t = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">ElseIf</span> SpFile Like <span class="string">".*"</span> <span class="keyword">Then</span> <span class="comment">'如果匹配要求为文件类型则</span></span><br><span class="line">                <span class="keyword">If</span> x Like SpFile <span class="keyword">Then</span> t = <span class="literal">True</span> <span class="comment">'当文件符合文件类型要求时匹配，否则不匹配</span></span><br><span class="line">            <span class="keyword">Else</span> <span class="comment">'否则为需要匹配文件名称中的一部分</span></span><br><span class="line">                <span class="keyword">If</span> <span class="built_in">InStr</span>(fnm, SpFile) <span class="keyword">Then</span> t = <span class="literal">True</span> <span class="comment">'如果匹配则状态为True</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">            <span class="keyword">If</span> t <span class="keyword">Then</span> k = k + <span class="number">1</span>: jg(k, <span class="number">0</span>) = x: jg(k, <span class="number">1</span>) = <span class="string">"'"</span> &amp; fnm: jg(k, <span class="number">2</span>) = fld.Name: jg(k, <span class="number">3</span>) = fld.Path</span><br><span class="line">        <span class="keyword">Next</span></span><br><span class="line">        Application.StatusBar = Format(<span class="built_in">Timer</span> - tms, <span class="string">"0.0s"</span>) &amp; <span class="string">" Get "</span> &amp; k &amp; <span class="string">" Files , Searching in Folder ... "</span> &amp; fld.Path</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">For</span> <span class="keyword">Each</span> fd <span class="keyword">In</span> fld.SubFolders <span class="comment">'然后遍历检查所有子文件夹.SubFolders</span></span><br><span class="line">        <span class="keyword">If</span> sb &lt; <span class="number">0</span> <span class="keyword">And</span> <span class="built_in">Len</span>(SpFile) = <span class="number">0</span> <span class="keyword">Then</span> k = k + <span class="number">1</span>: jg(k, <span class="number">0</span>) = <span class="string">"fld"</span>: jg(k, <span class="number">1</span>) = k: jg(k, <span class="number">2</span>) = fd.Name: jg(k, <span class="number">3</span>) = fld.Path</span><br><span class="line">        <span class="keyword">If</span> sb Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span> <span class="keyword">Call</span> ListAllFso(fd.Path, sb, SpFile)</span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>定义的写法——补课</li>
+</ol>
+<p>关于变量类型缩写的快速记忆：</p>
+<p>! = Single 单精度小数……因为 ! 笔画只是1竖单笔画，所以记住为【单精度】<br># = Double 双精度小数 …因为 # 笔画是2横2竖，所以记住为【双精度】<br>@ = Currency 货币型4位小数 …现实中大家也常用@符号代表价格、单价，所以记住为【货币型小数】<br>$ = String 文本字符串 …因为 String第1个字母是 S 所以记住为【美元s=String 文本字符串】</p>
+<p>% = Integer 整数 ……因为 % 是百分比符号我们把它联想为较少的整数【整型数值】<br>&amp; = Long 整数 ……因为 &amp; 可以看做是Long首字母L的花体字 所以记住为【长整型数值】</p>
+<p>呵呵，这样稍稍动脑筋记忆一下，以后就可以简单使用了。<br>比如这样子：<br>Dim i&amp;, j&amp;, k&amp;, l&amp;, l1&amp;, l2&amp;, m&amp;, n&amp;, s$, w1$, w2$</p>
+<p>如果很正规地写，成为：<br>  Dim i As Long<br>  Dim j As Long<br>  Dim k As Long<br>  Dim l As Long<br>  Dim l1 As Long<br>  Dim l2 As Long<br>  Dim m As Long<br>  Dim n As Long</p>
+<p>  Dim s As String<br>  Dim w1 As String<br>  Dim w2 As String</p>
+<p>这样就会很长。</p>
+<p>或者写在一起时，横向会很长也不方便<br>  Dim i As Long, j As Long, k As Long, l As Long, l1 As Long, l2 As Long, m As Long, n As Long<br>  Dim s As String, w1 As String, w2 As String</p>
+<p>…………<br>以上只是个人习惯而已。</p>
+<p>但是，新手千万不要这样子：<br>  Dim i, j, k, l, l1, l2, m, n As Long<br>  Dim s, w1, w2 As String</p>
+<p>这样做，只有最后一个蓝色的变量被正确定义了变量类型，<br>其它的都会被作为Variant变量使用……或许不影响使用，但至少违背了作者的初衷。所以不好。</p>
+<p>如果需要操作文件以及文件内的各个工作表Sheet，那么当然首先要打开该文件。</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Function</span> ListFiles(myPath$)</span><br><span class="line">   <span class="keyword">Set</span> Fso = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>)</span><br><span class="line">   <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> Fso.GetFolder(myPath).Files</span><br><span class="line">      Workbooks.Open (f) <span class="comment">'打开文件</span></span><br><span class="line">      <span class="keyword">For</span> <span class="keyword">Each</span> sh <span class="keyword">In</span> ActiveWorkbook.Sheets <span class="comment">'遍历该文件的所有工作表</span></span><br><span class="line">        sh.Activate <span class="comment">'激活工作表</span></span><br><span class="line">        </span><br><span class="line">      <span class="keyword">Next</span></span><br><span class="line">      ActiveWorkbook.Close <span class="comment">'关闭文件</span></span><br><span class="line">   <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>【Dir 使用方法】</p>
+<p>myPath = “c:&quot;  ‘首先设定目标文件夹，注意末尾必须是【\】文件夹符号。</p>
+<p>myFile = Dir(myPath, vbDirectory)  ‘第一次使用Dir函数时，必须完整输入路径和检索要求。<br>                                 ‘ 如果直接使用Dir不带参数则会报错。</p>
+<p>Do While myFile &lt;&gt; “”  ‘开始Do不定循环、直至在本文件夹内没有找到文档/文件夹而返回空白时停止。</p>
+<p>  If myFile &lt;&gt; “.” And myFile &lt;&gt; “..” Then<br>     ‘此If判断为忽略 当前文件夹”.”以及忽略上级文件夹”..”</p>
+<p>​     If (GetAttr(MyPath &amp; MyName) And vbDirectory) = vbDirectory Then<br>​        ‘接下来的If判断是：通过二进制的位比较计算结果= vbDirectory 来判断这是一个文件夹。<br>​        Debug.Print myFile      ‘判断为文件夹时的处理<br>​     Else ‘否则为文档<br>​        Debug.Print myFile     ‘判断为文档时的处理。<br>​     End If<br>  End If<br>  myFile = Dir   ‘继续调用【不带路径参数的Dir函数】 这样就能得到下一个搜寻结果。<br>Loop</p>
+<h2 id="四、本人的代码"><a href="#四、本人的代码" class="headerlink" title="四、本人的代码"></a>四、本人的代码</h2><ol>
+<li>之前平浙信项目折腾从excel到word，批量替换多个变量，遍历文件夹，但是开始自己还不会，只好在代码内复制粘贴，主要是为了满足功能，就这已经帮我们团队节省了80%以上的人力，先把丑陋的代码放在这里，命名v1.1：</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> CommandButton1_Click()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">Dim</span> Word对象 As <span class="keyword">New</span> Word.Application, 当前路径, 导出文件名, 导出路径文件名, i, j</span><br><span class="line">   <span class="keyword">Dim</span> Str1, Str2</span><br><span class="line">   当前路径 = ThisWorkbook.Path</span><br><span class="line">   最后行号 = Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B65536"</span>).<span class="keyword">End</span>(xlUp).Row</span><br><span class="line">   判断 = <span class="number">0</span></span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"信托合同：6份，每份骑缝章1各，签署页公章和法人章各1个，附件6预留印鉴公章和法人各1个"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\信托合同：6份，每份骑缝章1各，签署页公章和法人章各1个，附件6预留印鉴公章和法人各1个.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">48</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">    </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"本期区块链应收款清单：4份，总行公章+法人章+骑缝"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\本期区块链应收款清单：4份，总行公章+法人章+骑缝.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">48</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"风险说明书：6份，总行公章、法人章+骑缝"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\风险说明书：6份，总行公章、法人章+骑缝.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">48</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"信托说明书"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\信托说明书.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">48</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">        导出文件名 = <span class="string">"资产服务协议：5份，总行公章、法人章+骑缝"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\资产服务协议：5份，总行公章、法人章+骑缝.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">48</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"资产交割确认书：5份，总行公章+法人章"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\资产交割确认书：5份，总行公章+法人章.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">25</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"交割确认函：5份，总行公章+法人章"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\交割确认函：5份，总行公章+法人章.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">25</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"信托收益权转让登记表：3份，总行公章"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\信托收益权转让登记表：3份，总行公章.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">25</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">  </span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"信托资金保管合同"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\信托资金保管合同.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">25</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">   <span class="keyword">For</span> i = <span class="number">3</span> <span class="keyword">To</span> 最后行号</span><br><span class="line">      导出文件名 = <span class="string">"财产权受益权转让合同：5份，总行公章、法人章_骑缝"</span></span><br><span class="line">      FileCopy 当前路径 &amp; <span class="string">"\财产权受益权转让合同：5份，总行公章、法人章_骑缝.doc"</span>, 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      导出路径文件名 = 当前路径 &amp; <span class="string">"\"</span> &amp; 导出文件名 &amp; <span class="string">"("</span> &amp; Sheets(<span class="string">"数据"</span>).Range(<span class="string">"B"</span> &amp; i) &amp; <span class="string">").doc"</span></span><br><span class="line">      <span class="keyword">With</span> Word对象</span><br><span class="line">        .Documents.Open 导出路径文件名</span><br><span class="line">        .Visible = <span class="literal">False</span></span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">            <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">25</span></span><br><span class="line">             Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">             Str2 = Sheets(<span class="string">"数据"</span>).Cells(i, j + <span class="number">1</span>)</span><br><span class="line">             .Text = Str1</span><br><span class="line">             .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">             .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">            <span class="keyword">Next</span> j</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">        Str1 = <span class="string">"数据001"</span></span><br><span class="line">        Str2 = Sheets(<span class="string">"数据2"</span>).Cells(i, <span class="number">2</span>)</span><br><span class="line">        .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">        <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">           .Selection.Font.Color = wdColorAutomatic <span class="comment">'字符为自动颜色</span></span><br><span class="line">           .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">      <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">      Word对象.Documents.Save</span><br><span class="line">      Word对象.Quit</span><br><span class="line">      <span class="keyword">Set</span> Word对象 = <span class="literal">Nothing</span></span><br><span class="line">   <span class="keyword">Next</span> i</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">If</span> 判断 = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">      i = <span class="built_in">MsgBox</span>(<span class="string">"已输出到 Word 文件！"</span>, <span class="number">0</span> + <span class="number">48</span> + <span class="number">256</span> + <span class="number">0</span>, <span class="string">"提示："</span>)</span><br><span class="line">   <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> CommandButton输出通知到Word文件_Click()</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>恰好这次有个客户反馈word模板目录有问题，于是经过几天李笑来老师的自学之书的指点，加上对python的进一步理解，对编程算是有了一点点进步，结合前面几位牛人的代码，我算是完成了代码的升级，所以命名2.0，代码如下：</li>
+</ol>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> CommandButton1_Click()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">Dim</span> Str1, Str2</span><br><span class="line">    <span class="keyword">Dim</span> j</span><br><span class="line">    <span class="keyword">Dim</span> wdApp As Word.Application</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">Set</span> myFolder = <span class="built_in">CreateObject</span>(<span class="string">"Shell.Application"</span>).BrowseForFolder(<span class="number">0</span>, <span class="string">"GetFolder"</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">If</span> <span class="keyword">Not</span> myFolder <span class="keyword">Is</span> <span class="literal">Nothing</span> <span class="keyword">Then</span> myPath$ = myFolder.Items.Item.Path <span class="keyword">Else</span> <span class="built_in">MsgBox</span> <span class="string">"Folder not Selected"</span>: <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">If</span> <span class="built_in">Right</span>(myPath, <span class="number">1</span>) &lt;&gt; <span class="string">""</span> <span class="keyword">Then</span> myPath = myPath &amp; <span class="string">""</span></span><br><span class="line">    <span class="comment">'同样返回的是选中目标文件夹的绝对路径,但除了本地C盘、D盘会以"C:"形式返回外，其余路径无""需要添加</span></span><br><span class="line">    判断 = <span class="number">0</span></span><br><span class="line">    Application.ScreenUpdating = <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">Set</span> fld = <span class="built_in">CreateObject</span>(<span class="string">"Scripting.FileSystemObject"</span>).GetFolder(myPath) <span class="comment">'设置FSO实例</span></span><br><span class="line">       </span><br><span class="line">    <span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> fld.files <span class="comment">'遍历文件夹</span></span><br><span class="line">     <span class="comment">'以下代码实现每个文件的查找替换</span></span><br><span class="line">        <span class="keyword">Set</span> wdApp = <span class="keyword">New</span> Word.Application</span><br><span class="line">        <span class="keyword">If</span> <span class="built_in">Right</span>(f.Name, <span class="number">4</span>) = <span class="string">".doc"</span> <span class="keyword">And</span> <span class="built_in">InStr</span>(f.Name, <span class="string">"$"</span>) = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">        <span class="keyword">With</span> wdApp</span><br><span class="line">            .Documents.Open (f) <span class="comment">'打开文件，进行操作</span></span><br><span class="line">            .Visible = <span class="literal">False</span></span><br><span class="line">            .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">            <span class="keyword">With</span> .Selection.Find <span class="comment">'填写文字数据</span></span><br><span class="line">                <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">49</span></span><br><span class="line">                    Str1 = <span class="string">"数据"</span> &amp; Format(j, <span class="string">"000"</span>)</span><br><span class="line">                    Str2 = Sheets(<span class="string">"数据"</span>).Cells(<span class="number">3</span>, j + <span class="number">1</span>)</span><br><span class="line">                    .Text = Str1</span><br><span class="line">                    .Replacement.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">                    .<span class="keyword">Execute</span> <span class="built_in">Replace</span>:=wdReplaceAll <span class="comment">'全部替换</span></span><br><span class="line">                <span class="keyword">Next</span> j</span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        </span><br><span class="line">            .ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader <span class="comment">'设置位置在页眉</span></span><br><span class="line">                Str1 = <span class="string">"数据001"</span></span><br><span class="line">                Str2 = Sheets(<span class="string">"数据2"</span>).Cells(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">                .Selection.HomeKey Unit:=wdStory <span class="comment">'光标置于文件首</span></span><br><span class="line">      </span><br><span class="line">                 <span class="keyword">If</span> .Selection.Find.<span class="keyword">Execute</span>(Str1) <span class="keyword">Then</span> <span class="comment">'查找到指定字符串</span></span><br><span class="line">                    .Selection.Text = Str2 <span class="comment">'替换字符串</span></span><br><span class="line">                 <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">             </span><br><span class="line">            .Documents.Save</span><br><span class="line">            .Quit</span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">        <span class="keyword">Set</span> wdApp = <span class="literal">Nothing</span></span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line">    Application.ScreenUpdating = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">If</span> 判断 = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">        i = <span class="built_in">MsgBox</span>(<span class="string">"已输出到 Word 文件！"</span>, <span class="number">0</span> + <span class="number">49</span> + <span class="number">256</span> + <span class="number">0</span>, <span class="string">"提示："</span>)</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> CommandButton输出通知到Word文件_Click()</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>继续优化</strong> 代码，实现通用的批量查找替换</li>
+</ol>
+<p>其实很容易，就把上面代码第26行修改为如下即可：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Str1 = Sheets(<span class="string">"数据"</span>).Cells(<span class="number">2</span>, j + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>修改后的使用方法：</p>
+<blockquote>
+<ol>
+<li>选择需要批量替换的文件夹</li>
+<li>注意指定文档为.doc的文档，这个可以通过修改代码来改为所有文件</li>
+<li>在excel输入项里，第二行填写旧信息，第三行填写需要替换的信息</li>
+<li>点击按钮即可，设置最多的是49项，可以通过修改代码增加或减少</li>
+</ol>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2020/04/10/2019%E5%B9%B4%E5%B9%B4%E7%BB%88%E7%9B%98%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/10/2019%E5%B9%B4%E5%B9%B4%E7%BB%88%E7%9B%98%E7%82%B9/" itemprop="url">2019年年终盘点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T21:21:49+08:00">
+                2020-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="2019年年终盘点"><a href="#2019年年终盘点" class="headerlink" title="2019年年终盘点"></a>2019年年终盘点</h1><p>2019年这么快就过去了，这件盘点工作始于12月31日，成于1月1日。</p>
+<h2 id="全年家庭收支总结"><a href="#全年家庭收支总结" class="headerlink" title="全年家庭收支总结"></a>全年家庭收支总结</h2><h3 id="一、收入与支出"><a href="#一、收入与支出" class="headerlink" title="一、收入与支出"></a>一、收入与支出</h3><p>根据统计，全年家庭总收入116万元，支出80万，有36万节余。详见下表</p>
+<table>
+<thead>
+<tr>
+<th>收入</th>
+<th>金额</th>
+<th>支出</th>
+<th>金额</th>
+<th>月均</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>我</td>
+<td>564,692.28</td>
+<td>交通</td>
+<td>36,135.79</td>
+<td>3,011.32</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>老婆</td>
+<td>497,947.20</td>
+<td>通讯</td>
+<td>5,175.91</td>
+<td>431.33</td>
+<td>0.6%</td>
+</tr>
+<tr>
+<td>房屋出租</td>
+<td>73,000.00</td>
+<td>金融保险</td>
+<td>366,942.55</td>
+<td>30,578.55</td>
+<td>45.8%</td>
+</tr>
+<tr>
+<td>儿子补贴</td>
+<td>20,000.00</td>
+<td>居家物业</td>
+<td>101,720.65</td>
+<td>8,476.72</td>
+<td>12.7%</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>1,155,639.48</td>
+<td>其他杂项</td>
+<td>62,602.00</td>
+<td>5,216.83</td>
+<td>7.8%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>人情往来</td>
+<td>38,066.12</td>
+<td>3,172.18</td>
+<td>4.8%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>食品酒水</td>
+<td>51,618.26</td>
+<td>4,301.52</td>
+<td>6.4%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>休闲娱乐</td>
+<td>14,318.15</td>
+<td>1,193.18</td>
+<td>1.8%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>学习进修</td>
+<td>80,932.20</td>
+<td>6,744.35</td>
+<td>10.1%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>衣服装饰</td>
+<td>23,160.00</td>
+<td>1,930.00</td>
+<td>2.9%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>医疗</td>
+<td>20,332.01</td>
+<td>1,694.33</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>合计</td>
+<td>801,003.64</td>
+<td>66,750.30</td>
+<td>100.0%</td>
+</tr>
+</tbody></table>
+<p>收入不需要多说什么，我自己的收入还有年终奖和四季度的绩效没有到手，整体上老婆的收入上升比较快，自己的收入加上绩效后应该能跟往年持平，目前看还缺不少。</p>
+<p>各项支出来看，金融保险占比45.8%，主要是按揭贷款每月21000元，一家三口的保险每年约10万元。</p>
+<h3 id="二、投资情况"><a href="#二、投资情况" class="headerlink" title="二、投资情况"></a>二、投资情况</h3><p><img src="2019%E5%B9%B4%E5%B9%B4%E7%BB%88%E7%9B%98%E7%82%B9.assets/image-20200101111046269.png" alt="image-20200101111046269"></p>
+<p>上表为截至2019/12/31各持仓的情况，其中美股的单位是美元，港股的单位是港币，A股的单位是元，折算后当日的投资总持仓市值为：   1,267,134.29 元，该金额作为2020年1月1日的初始本金金额，计算收益率。</p>
+<h3 id="三、家里的重要事项"><a href="#三、家里的重要事项" class="headerlink" title="三、家里的重要事项"></a>三、家里的重要事项</h3><p>今年必须要说的是，装修了下厨房里的橱柜，买了一台洗碗机。这台洗碗机提升生活幸福指数，就连老爸老妈的观点也大为改变，非常喜欢。</p>
+<p>老爸的腿病，在平乐骨伤科怀疑是跟神经元有关，后在市二医院和港大医院检查诊断，怀疑是渐冻症，这让我有些害怕，不过也没有办法，只能接受，希望它病情发展缓慢，尽量维持。</p>
+<p>老婆读博，压力山大。</p>
+<p>杀医事件，让老婆更加害怕这个职业，我心中只能默默祈祷，祈祷我预测的大牛市早日到来，让我们全家的经济情况上个台阶，我们可以有更多的选择。</p>
+<h2 id="赵翀的学习及辅导情况"><a href="#赵翀的学习及辅导情况" class="headerlink" title="赵翀的学习及辅导情况"></a>赵翀的学习及辅导情况</h2><p>说来惭愧，赵翀今年这个学期成绩并没有太大的提升，在某种程度上来讲，还有所下降。语文的生字词掌握的不太好，错别字现象有加重的趋势；数学一直是他头疼的科目，英语也逐渐没有了优势，似乎课外补习的效果不明显。</p>
+<p>有一个困扰我的问题是，孩子没有主观意愿去学习，不知道怎么激发他提高主观能动性。好像我小时候也有这种情况吧，记得我是在小学五年级才开窍的，初中之后又开始浑浑噩噩，初三复习那一年才知道学习。</p>
+<p>儿子不能走我的老路，我需要帮助他把成绩赶上来。</p>
+<p>我决定践行以下几件事：</p>
+<ol>
+<li>制定每日清单，明确每天每个小时自己应该做什么；</li>
+<li>我每周总结的时候，把辅导赵翀投入的时间精力作为一个必须总结的事项，以此鞭策自己，始终如一，与儿子共同成长；</li>
+<li>坚持检查赵翀的作业，严格要求；</li>
+</ol>
+<p>最后这两周时间是复习的关键阶段，我需要投入大量的精力，协助他指定复习计划和整理错题，按计划进行三轮复习，争取期末考试有明显的提升。</p>
+<h2 id="读书学习情况"><a href="#读书学习情况" class="headerlink" title="读书学习情况"></a>读书学习情况</h2><h3 id="一、读书"><a href="#一、读书" class="headerlink" title="一、读书"></a>一、读书</h3><p>今年读了老唐的微信文章合集，价值投资实战手册，查理·芒格传，赌金者：长期资本管理公司的升腾与陨落；另外读了70%的小说庆余年，正在读跳着踢踏舞去上班这本书，以后争取每读完一本书要写一个书评，简要说明下自己读书的收获，不然读是读了，却没有太多可以说明的东西。</p>
+<h3 id="二、编程"><a href="#二、编程" class="headerlink" title="二、编程"></a>二、编程</h3><p>今年又读了李笑来的一本新书自学是门手艺，讲自学，也是教python，所以，我认真读着，学习着，python感觉上已经入了门，接下来就是要用这门语言来解决实际问题。</p>
+<p>不过在使用python解决实际问题之前，却是从这本书所教的理念入手，从解决实际问题的角度，取得了一些长足的效果：</p>
+<ol>
+<li>使用VBA，完成了由Excel源数据向Word文档写入的功能，本质上是批量查找替换，但是大大解放了生产力，避免了人为错误的发生，具体的结果就是平浙信项目一键生成全套合同，这个业务给我们今年带来了一百亿的规模，上百万的收入；</li>
+<li>实现了Excel向Excel数据的批量输入，改文件名；</li>
+<li>从网上找到了Word数据提取到excel。至此彻底打通了Excel和Word直接的互通，只要是重复的工作，都可以通过几行代码解决问题。</li>
+</ol>
+<p>对于编程的学习，讲究的是持续输出，解决问题，这几周的实际应用，让我的vba提高不少，虽然写起来仍然有种用脚趾头握笔写字的笨拙感，但是一步步实现以后，那种快感还是相当的舒服的。</p>
+<h3 id="三、投资"><a href="#三、投资" class="headerlink" title="三、投资"></a>三、投资</h3><p>今年我感觉自己彻底的变成了巴菲特价值理念的执行者，从去年11月份开始陆续建仓，到现在，一年时间，除了陆续买入，并不断把之前持仓的投机股换成价值股的动作之外，没有卖出动作，在股市投入的资金，是要至少3年不能拿出来的。</p>
+<p>我心中总有着一种感觉，明年或者未来3年内，我应该能体验到一波大牛市，我内心强烈的希望能驾驭此次牛市，让资金上一个台阶，早日实现财务自由。</p>
+<h2 id="锻炼身体"><a href="#锻炼身体" class="headerlink" title="锻炼身体"></a>锻炼身体</h2><p>随着年龄的增长，身体健康逐渐成为了不得不面对的问题。</p>
+<p>2019年全年运动70次，总跑步241.38公里，其中7月9月做的最好，其他月份一般，今年开始加强重视，而且我也发现如果持续多天不进行运动，自己的睡眠质量也会降低。</p>
+<p><img src="2019%E5%B9%B4%E5%B9%B4%E7%BB%88%E7%9B%98%E7%82%B9.assets/image-20200101120122457.png" alt="image-20200101120122457"></p>
+<p>睡眠情况如下:平均每天的睡眠时间在6小时45分钟左右。以后还是坚持运动，早睡早起，晚上控制下饮食，少用手机和电脑，在九点半左右去跑步，十点左右就开始准备睡眠的各项工作（放下手机、关闭电脑，洗澡，用Kindle看书）。</p>
+<p><img src="2019%E5%B9%B4%E5%B9%B4%E7%BB%88%E7%9B%98%E7%82%B9.assets/image-20200101120242973.png" alt="image-20200101120242973"></p>
+<h2 id="每日生活清单"><a href="#每日生活清单" class="headerlink" title="每日生活清单"></a>每日生活清单</h2><ul>
+<li>7点~9点：起床，吃饭，每日英语朗读、或经典投资文章朗读</li>
+<li>9点~10点：公交上班，听书或用Kindle读书</li>
+<li>10点~12点：处理每日工作</li>
+<li>12点~13点：午饭，看看电影、视频、小说之类</li>
+<li>13点~14点：午休，听得到或听书</li>
+<li>14点~16点：继续处理每日工作，编程，解决实际问题</li>
+<li>16点~17点：公交回家，听书或用Kindle读书</li>
+<li>17点~19点：辅导赵翀作业，检查作业情况，跟赵翀聊天，强调他的输出，复述当天学习的内容</li>
+<li>19点~20点：晚饭，让赵翀朗读英语课文、习题，语文课文</li>
+<li>20点~21点半：继续辅导赵翀作业，必要的编程输出，跟赵翀商量确定第二天朗读的内容</li>
+<li>21点半~22点：跑步</li>
+<li>22点~23点：洗澡，读书，睡觉</li>
+<li>23点~7点：睡觉</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2020/04/10/2017-05-03-%E5%BC%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/10/2017-05-03-%E5%BC%80%E7%AF%87/" itemprop="url">2017-05-03-开篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T21:21:49+08:00">
+                2020-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>layout:     post<br>title:      钞票搬运工博客开篇<br>subtitle:   开篇大吉<br>date:       2017-05-03<br>author:     ZYC<br>header-img: img/post-bg-ios9-web.jpg<br>catalog: true<br>tags:<br>    - 开篇<br>    - 理财<br>    - 财富</p>
+<hr>
+<p>#钞票搬运工</p>
+<p>##–开篇</p>
+<p>今日凌晨，细思昨天跟朋友的各种细节，突然发出一个奇想，如果我利用自己对于产品的专业度，对于金融的深度理解，利用自己网站和微信公众号，发布产品信息和宣传软文，增加订阅量，也是一个很不错的注意哦。为此，我都给我的网站起好了名字，名字就叫做<strong>“钞票搬运工”</strong>。</p>
+<p>内容板块我也想好了，初步就三个:</p>
+<blockquote>
+<p>一个关于近期市场利率水平，理财最新动态，给客户一个基本服务；</p>
+</blockquote>
+<blockquote>
+<p>第二块就是固收，把主要在售的几个产品，分别用简洁专业的语言介绍；</p>
+</blockquote>
+<blockquote>
+<p>第三块就是其他公司产品，或者我代理的产品（未来也可以修改为权益类产品等）</p>
+</blockquote>
+<p>我的优势在哪里：</p>
+<blockquote>
+<p>＊对产品熟悉，专业！</p>
+</blockquote>
+<blockquote>
+<p>＊懂写作，懂销售的重要性！</p>
+</blockquote>
+<blockquote>
+<p>＊懂Linux和Python，今后利用爬虫分析理财产品！</p>
+</blockquote>
+<blockquote>
+<p>＊可以通过微信公众号和个人专业网站宣传产品，提供服务！</p>
+</blockquote>
+<blockquote>
+<p>＊前几年做项目的过程中，已经积累了一些高净值客户，这是我的竞争力！</p>
+</blockquote>
+<p>我的劣势是什么：</p>
+<blockquote>
+<p>＊不太善于跟人打交道。</p>
+</blockquote>
+<blockquote>
+<p>＊内心深处我是看不起销售的。</p>
+</blockquote>
+<p>不过这一次，经过这个朋友深入浅出的说服，我第一次认真的考虑转行做销售，考虑好好利用自身资源，考虑更近一步接近钱。还是那句话：“离钱近，离事远，离是非更远！”</p>
+<p>所以，今天我用vim写下<strong>钞票搬运工</strong>的开篇，并且从此开启我的销售人生！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2020/04/09/poems-of-Kyle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -479,9 +1251,729 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2019/03/29/2019-03-29-%E5%8D%81%E5%B9%B4%E8%B4%A2%E5%8A%A1%E8%87%AA%E7%94%B1%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8A%95%E8%B5%84%E5%AE%9E%E8%AF%81#1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/29/2019-03-29-%E5%8D%81%E5%B9%B4%E8%B4%A2%E5%8A%A1%E8%87%AA%E7%94%B1%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8A%95%E8%B5%84%E5%AE%9E%E8%AF%81#1/" itemprop="url">十年财务自由之路——投资实证#1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-29T00:00:00+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>昨天晚上跟老婆说，今天已经完成了十年财务自由之路的初始化，每个月我们能够又3.5万的本金投入，每年也就是40万多的投入，坚持十年，就可以实现本金700万的目标，按10%的收益率计算，可以覆盖目前家庭所有开支，初步实现财务自由。</p>
+<p>老婆大人昨天一直到8点半才下班，累的不行，我刚刚说完这几句话，她就开始不高兴了。过去的这些年，我们没有任何不必要的花费，我们已经是非常节俭了，难道还要更加节俭吗？我们还有哪些地方可以节省的呢？</p>
+<p>昨天我在文章中其实也写了，我们一直比较节俭，这几年积蓄一点儿钱就去买房，平日里根本就没有太多不该的花费；而且收入来源主要就是工资，靠两个人的工作收入一点点积累，已经很辛苦，很累了。</p>
+<p>而且，按照过往的做法，未来十年就算没有现在我所说的十年财务自由计划，只要是还像现在这样，努力工作，日常生活，我们依然也不会缺钱花，大概率事件，我们的生活水准在中上档，看看我们的同事，我们的前辈就知道了，没有多少是缺钱的。所以，我老婆的结论是，看不出我这个所谓十年财务自由之路的计划，有什么特别吸引人之处。</p>
+<p>所以，昨天和今天一直都在思考这个问题。我的十年财务自由之路，重点应该不是减支和增收，积累本金，坚持长线投资，实现复利的魔力，才是重点。</p>
+<h2 id="持续积累本金"><a href="#持续积累本金" class="headerlink" title="持续积累本金"></a>持续积累本金</h2><p>按过往一样，保持稳定的工作，积极努力的工作，赚取应有的工资报酬，累积本金。减支没有空间了，将来可以花费精力，<strong>在增收上面做做文章</strong>。</p>
+<h2 id="坚持长线投资"><a href="#坚持长线投资" class="headerlink" title="坚持长线投资"></a>坚持长线投资</h2><p>长线投资，这是我首先要努力坚持的，是未来应该努力的第一个重要方面。</p>
+<p>过往的那些年，除了家里买的房子，都选择在相对地点买入持有外，我在股市上的投资一直是被收割的命运，就算是赚钱也没有赚到多少。现在看来，当初的所谓投资，都只是浪费事件，瞎折腾。所以这也是不被老婆信任的主要原因吧。</p>
+<p>现在本金越来越多，如果还是像以前那样瞎折腾，十年后还是这个样子，老婆大人看不出来的计划的特别之处就在这里。</p>
+<h3 id="首先是长线投资的思想"><a href="#首先是长线投资的思想" class="headerlink" title="首先是长线投资的思想"></a>首先是长线投资的思想</h3><p>坚持长线投资。以前的瞎折腾都没啥用，耗费了好多的精力，确实是打发时间的好去处。可是人家顶多也就打打麻将，我天天研究K线，日日买进卖出，随着本金增大，亏损的可能性和危害性更大。</p>
+<p>关注企业自身发展。最近看了很多价值投资的书，吸收点儿投资的思想，确定了寻找优质企业，并与其一起成长的投资理念。寻找年利润增长率在20%以上的优质企业，学会估值，学会分析企业，寻找这些企业，在合理的价格，买入，持有。就是这样。</p>
+<h3 id="投资指数基金"><a href="#投资指数基金" class="headerlink" title="投资指数基金"></a>投资指数基金</h3><p>在还没有像老唐那样精于研究企业，对所投资的企业那么熟悉之前，尽量先投资指数。目前A股的估值水平，虽然精力一季度的疯涨，但仍然处于历史地位，继续按计划定期定投即可。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>所以，跟老婆讨论一下，明确了我的十年财务自由之路的努力重点，不是增收减支，当然这个很重要，但是我们已经做的够好，或者，不能做的更好了。</p>
+<p>重点只剩下一个，努力提升自己，学习分析企业，筛选优质企业，学习如何估值，坚持长线投资。在此之前，主要投资到指数基金即可。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2019/03/28/2019-03-28-%E5%8D%81%E5%B9%B4%E8%B4%A2%E5%8A%A1%E8%87%AA%E7%94%B1%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8A%95%E8%B5%84%E5%AE%9E%E8%AF%81#0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/28/2019-03-28-%E5%8D%81%E5%B9%B4%E8%B4%A2%E5%8A%A1%E8%87%AA%E7%94%B1%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8A%95%E8%B5%84%E5%AE%9E%E8%AF%81#0/" itemprop="url">十年财务自由之路——投资实证#0</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-28T00:00:00+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="这是第0次实证——开始-20190328"><a href="#这是第0次实证——开始-20190328" class="headerlink" title="这是第0次实证——开始(20190328)"></a>这是第0次实证——开始(20190328)</h1><p>上次说过了，无论如何我需要开启自己的十年财务自由之路。其实整个过程没有什么难的，所以副标题用了”一个平静的开始”，我是跟着也谈钱一起来个实证，今天他的初始化放出来了，<a href="https://mp.weixin.qq.com/s?__biz=MzUzNjE3NzQ3Nw==&mid=2247484500&idx=1&sn=c04c3de1a1231bef25bb4cda773c00ff&chksm=fafb7a7ecd8cf368e97a74faf08b0d6c6d895d95eb883b223380870b88618c54ed501fe756dc&scene=0&xtrack=1&key=40044b5fbc6fb603e7633491554c3659058014a6813c79da43341bf40143e288cb21bbf1d6d2521b2b56651ea96c7552a8d35d83c15a0b1db3beb5b00355af943e17555ce7c65ae3f9ec4bb4182a1622&ascene=1&uin=MTA3NDEzNDc4MA%3D%3D&devicetype=Windows+10&version=62060739&lang=zh_CN&pass_ticket=9Zx0EllxqiG1t41xAvzatetCOcYKvBZo9rwp%2FYQEMZ9yB6qWYcNwyKyJ%2BxZfejn9" target="_blank" rel="noopener">财务自由之路的初始化</a>。所以，这篇文章就是跟着也谈钱一起踏上财务自由之路的第一步，完成作业。</p>
+<p>也谈钱君的作业是这样的：</p>
+<blockquote>
+<p>再给大家总结一下需要做的 todo，算是个作业吧。不把这些问题搞明白，后面的实证跟起来会比较吃力。</p>
+<p>明确计划</p>
+<ul>
+<li><p>计算自己的目标被动收入</p>
+</li>
+<li><p>以 10% 的预期收益率估算所需本金</p>
+</li>
+<li><p>以 10 年为期，计算目标储蓄额</p>
+</li>
+<li><p>评估一下这个储蓄额目前是否能达到</p>
+</li>
+</ul>
+<p>增收减支</p>
+<ul>
+<li>想办法增加收入</li>
+<li>开始记账（事无巨细地记账）</li>
+<li>制定预算</li>
+</ul>
+<p>认知升级</p>
+<ul>
+<li>读书学习</li>
+</ul>
+<p>理性思考</p>
+<ul>
+<li>没有 Todo，但是你要知道这么一回事</li>
+</ul>
+</blockquote>
+<h2 id="明确计划"><a href="#明确计划" class="headerlink" title="明确计划"></a>明确计划</h2><p>自己的目标收入上次已经写过了，目标是700万，以10%的预期收益率估算所需的本金，并且以10年为期，计算目标储蓄额。本以为对我来说会比较轻松，一计算才知道，还是很有挑战的。</p>
+<p>按照目标金额700，10%的预期收益率，10年的期限计算，每个月需要固定存入的本金为35,023.83元，目前我的家庭储蓄金额每个月都达标是挺难的，但是按年计算就还算是勉强可以，心中不免有些沮丧，未来十年内能够确保每月都达到目标吗？</p>
+<p>折算到年，需要完成年投入42万，这个目标倒是不太难。</p>
+<p><img src="../img/1553758362462.png" alt="1553758362462"></p>
+<p>好在我并非0起步，目前账户上可供投资的家底儿还有一百二左右，所以起初金额处填入100万后，每个月的目标金额看起来容易多了。</p>
+<p>经过调整，每个月需要投入的本金为22,046.3元，一下子负担减轻很多，信心足了，胆子壮了，准备撸袖子搞了。</p>
+<p><img src="../img/1553758497833.png" alt="1553758497833"></p>
+<p>慢着，这里还有个bug，这里的预期收益率是10%计算的，事实上，能够取得十年平均年化10%的收益率水平，是很有挑战的，我保守点儿，计算下5%的情形下，每个月的本金投入为34,795.21元，哦买噶，收益率对本金投入的影响超级大啊，鸭梨依然在啊。</p>
+<p><img src="../img/1553758733193.png" alt="1553758733193"></p>
+<p>好吧，看来十年财务自由之路绝非易事，定好目标，更多的时间和精力还是放在工作、学习和控制消费上面吧，最后不死心，再测算下7%的收益率水平，每月的本金投入为29,422.97。</p>
+<p>ps：这个计算器确实不错，感谢推荐，链接点击：<a href="https://www.calculator.net/investment-calculator.html?ctype=contributeamount&ctargetamountv=7000000&cstartingprinciplev=1000000&cyearsv=10&cinterestratev=7&ccontributeamountv=1000&ciadditionat1=monthly&printit=0&x=76&y=13" target="_blank" rel="noopener">Ivestment Calculator</a></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>按十年10%年化收益水平，要想达到目标，需要持续每月投入本金为3.5万元；</li>
+<li>考虑到目前有的初始投资本金，可以适当降低每月投入，降低挑战；</li>
+<li>但是想要取得十年的平均年化10%收益率水平绝非易事，需要花费精力和时间，持续地学习提升。</li>
+<li>明确我的每月投入本金目标值3万5，最低值2万9。</li>
+</ol>
+<h2 id="增收减支"><a href="#增收减支" class="headerlink" title="增收减支"></a>增收减支</h2><h3 id="减支"><a href="#减支" class="headerlink" title="减支"></a>减支</h3><p>实话说，平时我的支出并不多，我记账至少有四年时间，所以，对于家庭开支情况还是比较熟悉的。我个人基本上没有什么消费，不抽烟不喝酒，不喜欢应酬热闹，所以这也是为什么我觉得自己适合在国外生活的原因之一。</p>
+<p>我们两口子都是这种相对比较简单的人，太太工作特别辛苦特别忙，平日里只是工作和家两点一线，花钱的时间都没有，所以偶尔她想要买些衣服啊化妆品啊，绝对无条件满足。</p>
+<p>当然了，我们过的生活绝对不差。老爸老妈牺牲了在老家的自由时光，自打孩子一出生就留在我们身边，默默付出好多年，所以，我们省了保姆的钱，省了请阿姨的钱，每个月给他们的日常花费，他们还会想方设法去很远的批发市场买菜。特别感谢老爸老妈！让我们专心工作，无需顾虑家里和孩子，每天晚上饭桌上总是好多个菜，变着花样的做。</p>
+<p>当初我看《不上班也有钱》，很羡慕他们的执行力，但是确实，对于现在的我和我的家庭，我不可能做到那么极致，减支没有什么方法了，但是我会<strong>严格控制这一消费水平，不随意提高</strong>。</p>
+<h3 id="增收"><a href="#增收" class="headerlink" title="增收"></a>增收</h3><p>其实，也特别简单，我们两个人都是全职工作，主要的收入来源就是工资。最近几年，我的工作应该有很不错的预期，努力工作，赚取超额提成，争取在未来三年内完成大部分本金的积累是我最主要的目标。这样，后面的压力会小很多。</p>
+<p>其他的呢？基本上没有。</p>
+<p>确实啊，不写下来不知道，像我们这种典型的双职工家庭，除了工作，没有其他的收入来源，财务上非常脆弱的，一旦我们生病、失业或者意外，就会影响家庭现状，多年来形成的积累难以持续，后面家庭的整体财务状况就会迅速恶化。</p>
+<p>当然，无论有没有其他的增收手段，绝大部分人应该都跟我一样，首要的任务是做好本职工作。</p>
+<p>其次就是要做好防守，也就是保险的配置，确保小概率事件发生时，不至于一朝回到解放前。</p>
+<h2 id="保险"><a href="#保险" class="headerlink" title="保险"></a>保险</h2><p>根据也谈钱的介绍和自己的了解，目前我需要配置的是医疗险，支出不大，夫妻两人每年也就一千多块钱，马上去配置就好了，问题不大。</p>
+<h2 id="认知升级"><a href="#认知升级" class="headerlink" title="认知升级"></a>认知升级</h2><p>除了上面说的，还有啥？就剩下认知升级和一步一步践行了。十年财务自由之路是很枯燥无趣的，十年前我曾经要进行一项长达十年的投资，结果进行了三四年就中断了，现在每每回忆起来，后悔不迭，因为只需要再坚持多两年时间，我的回报就会非常可观，而实际上是，我第一，没有积累足够的本金，第二没有熬到收益实现，死在了黎明前，只剩一地鸡毛。</p>
+<p>所以，这一次，是认真的。</p>
+<p>为了不中断这个计划，我需要做如下工作：</p>
+<ol>
+<li>每个月进行一次投资操作，按计划将本金投入到拟投资的标的。</li>
+<li>每个月回顾当月预算执行情况，本金投入情况，以及累计本金完成进度。</li>
+<li>每个月完成投资实证，在此博客发布，同时让太太监督。</li>
+<li>持续关注也谈钱的公众号，跟着他一起走。</li>
+</ol>
+<h3 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h3><p>也谈钱推荐了书单，大部分都已经读过，其中对我印象最深的就是《不上班也有钱》，另外就是《搞定》这本书，大家对他赞誉那么高，为啥我就是读不下去呢？是翻译的问题？感觉好啰嗦。</p>
+<p>看了《不上班也有钱》，进而去关注了男女主的博客、FB等，男主博客上的文章，也很有借鉴意义，但好多涉及美国的养老计划，跟我们不太相关。</p>
+<p>目前我自己在读的书是唐朝老师的《手把手教你读财报2》，因为我现在持有银行股，要好好研究下银行的报表，认知升级，这才是业余时间的正确打开方式。</p>
+<h2 id="无疾到天年——锻炼身体"><a href="#无疾到天年——锻炼身体" class="headerlink" title="无疾到天年——锻炼身体"></a>无疾到天年——锻炼身体</h2><p>前段时间读到了杨天南老师的《无疾到天年》，我也开始践行了，坚持跑步和打太极拳，保持健康体魄，活的久，才能实证复利的魔力。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2019/03/22/2019-03-22-%E6%9C%80%E8%BF%91%E6%88%91%E9%9D%9E%E5%B8%B8%E6%8E%A8%E5%B4%87%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BD%91%E7%AB%99%E6%88%96%E8%80%85%E5%85%AC%E4%BC%97%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/2019-03-22-%E6%9C%80%E8%BF%91%E6%88%91%E9%9D%9E%E5%B8%B8%E6%8E%A8%E5%B4%87%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BD%91%E7%AB%99%E6%88%96%E8%80%85%E5%85%AC%E4%BC%97%E5%8F%B7/" itemprop="url">最近我非常推崇的一些网站或者公众号</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-22T00:00:00+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="最近我非常推崇的一些网站或者公众号"><a href="#最近我非常推崇的一些网站或者公众号" class="headerlink" title="最近我非常推崇的一些网站或者公众号"></a>最近我非常推崇的一些网站或者公众号</h1><h2 id="也谈钱"><a href="#也谈钱" class="headerlink" title="也谈钱"></a>也谈钱</h2><p>也谈钱是我最近特别喜欢跟的公众号，主打理财。博主是一个在德国工作的码农，几年前开始学习理财，并坚持写公众号，进行无私分享。</p>
+<p>从这个公众号里，我首先学习了博主根据GTD的使用，优化evernote的目录组织架构，学习GTD技术，优化自己的时间管理；</p>
+<p>其次，就坚持学习博主的记账技巧，用我自己的“随手记”APP来记账，并且反复调整摸索，除了预算功能不及他推荐的Wiz，但是免费的，一直坚持着可以用，同步功能优秀，方便导出，就足够了，真的要进行分析，还是导出来在Excel里处理吧。</p>
+<p>另外，作者的理念非常的清晰，到底是码农，逻辑清晰，善用工具，执行力强，而且喜欢分享，我第一个花钱的知识星球就奉献给了他。</p>
+<p>作者推荐了很多好书，我跟着读了《不上班也有钱》，坚定了自己十年财富自由之路，决定从当下做起，坚持十年，实现自己的财富自由。为此，我也仿照博主的思路，搭建自己的资产配置，定期复盘调整，记录自己的投资之路。由此我也引申出来好多优质资源，比如由于找不到《不上班也有钱》这本书，在喜马拉雅上找到了听的资源，因此找到了终身黑白这位播主，进而呢听到了杨天南，所以又关注了杨天南的财富健康谈。</p>
+<p>博主的优质帖子汇总可以点此直达：</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzUzNjE3NzQ3Nw==&mid=2247483981&idx=1&sn=46d554cf796cb3d6b5c92f12467a56a2&chksm=fafb7c67cd8cf5713910c9c58ea32aa93e6315f849712d831f0a9286b2ce2e3ca19f87554c5a&mpshare=1&scene=1&srcid=0320Pp1btC0kJuKHHRqMIbDY&key=32072adf498bfba61adc79dbf0aff5ae6cad61003db19e57fbd9a93aeb19067f2da909622c551d41e7f4cba91513004608559d4cc0be782aa44ad5fb888bcc78c50bb8733f614fcdb9732dc848b07a19&ascene=1&uin=MTA3NDEzNDc4MA%3D%3D&devicetype=Windows+10&version=62060739&lang=zh_CN&pass_ticket=7W8eQ%2BvgVGcWMTJ1R8On01dRXeyRhTTaACind%2FbnYcjNnWV3%2F53GPyU1cjwvdL1p" target="_blank" rel="noopener">2017年文章汇总</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzUzNjE3NzQ3Nw==&mid=2247484367&idx=1&sn=323b5332f996d7d2080232b40b81c0b5&chksm=fafb7de5cd8cf4f3d9de5fbbb8a7ba55e94196fda0685c7ecd9f4f9ffd3cc07fbd243bf6fe17&mpshare=1&scene=1&srcid=0320ZdA4PnDuvgzIcwXws2NS&key=fc86bfe69d5a458ef4d0e021c7eb39e04cd4328b65ec1e23f29a551349babcc10c7f77e2c8c883c1d55744d404b0cca66477ff20cf2c2ed4f08798b8cc61da226330e0666503b365d2e6a317a36c6a88&ascene=1&uin=MTA3NDEzNDc4MA%3D%3D&devicetype=Windows+10&version=62060739&lang=zh_CN&pass_ticket=7W8eQ%2BvgVGcWMTJ1R8On01dRXeyRhTTaACind%2FbnYcjNnWV3%2F53GPyU1cjwvdL1p" target="_blank" rel="noopener">2018年文章汇总</a></p>
+<h2 id="杨天南财务健康谈"><a href="#杨天南财务健康谈" class="headerlink" title="杨天南财务健康谈"></a>杨天南财务健康谈</h2><p>杨天南是金石致远基金的老大，多年来坚持价值投资，是巴菲特忠实拥趸，曾经参加过BKR的股东大会，还有幸获得提问巴菲特的幸运儿之一。坚持在杂志公布投资实证，定期发表投资文章，取得了非常好的收益。其观念正统，坚持长期投资，价值投资。</p>
+<p>作者在工作至于，翻译了《巴菲特致股东的信》、《巴菲特之道》，出版了《一个投资家的二十年》，并且这些书都在其公众号连载。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MjM5OTA3ODIzMg==&mid=502819213&idx=1&sn=a90dbca12b8053dd75bb7ada3b9ac0c7&chksm=3ecc39ba09bbb0ac75ac5f7a02b10146b5b814511c4ac6f8c777546e369dc59a1760e9f52922&scene=18&key=35eca3cf9119f799d6f0e6994ca28a68af16545757b5b60ce36d95df64463b7313eafcbecf02f282385f9e2a9de70ce543d7feb104fe9313427a6bffe063ffb71f0208cddbc872a6f92620c1ee8c9f5d&ascene=1&uin=MTA3NDEzNDc4MA%3D%3D&devicetype=Windows+10&version=62060739&lang=zh_CN&pass_ticket=7W8eQ%2BvgVGcWMTJ1R8On01dRXeyRhTTaACind%2FbnYcjNnWV3%2F53GPyU1cjwvdL1p" target="_blank" rel="noopener">一个投资家的二十年</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MjM5OTA3ODIzMg==&mid=502819211&idx=1&sn=b17ae32d9e685205aea02094b10881ea&chksm=3ecc39bc09bbb0aa0b363d5a66cf9d139699be380c45d34e6fbdd0e38884d431df613a8e9e63&mpshare=1&scene=1&srcid=&key=35eca3cf9119f79977ce5659107bbc7d64ab754c9dfd77cb2634c88a30a5222969589a9f7af032e19aa82525674f612f8f7af3f3d2e1e65a95aa1630089819677ad4fd7a0a6c903fa218e2252889e8e9&ascene=1&uin=MTA3NDEzNDc4MA%3D%3D&devicetype=Windows+10&version=62060739&lang=zh_CN&pass_ticket=7W8eQ%2BvgVGcWMTJ1R8On01dRXeyRhTTaACind%2FbnYcjNnWV3%2F53GPyU1cjwvdL1p" target="_blank" rel="noopener">巴菲特之道</a></p>
+<p>巴菲特致股东的信还在连载中，没有汇总帖，不过这个价值投资者的圣经，还是多看几遍原文比较好。为此，我也多方搜罗，在百度云上也存了备份，电脑里也下载了中英文版本的原文及翻译，但是还一直没有精力和耐心去看。我的分享链接先放这里：链接: <a href="https://pan.baidu.com/s/1XsFCf4Gu_DZla1v5XK-I7Q" target="_blank" rel="noopener">https://pan.baidu.com/s/1XsFCf4Gu_DZla1v5XK-I7Q</a> 提取码: e1m6 ；其实有点儿动手能力的，想顺道加强下英文的，直接官方网站一年年的挨着读也不错，看看老爷子的原文是怎么写的。</p>
+<p>据我所知，我所推崇和崇拜的大神级人物唐朝，自己就曾在文章中说过，巴菲特致股东的信自己反反复复读过好多遍，所以才能够随口道来，实在记不清原文的，模糊记得，也很容易通过搜索来提取到原文，可见想要投资成功，还是要勤奋，多研读经典，反复研读，唯有此道，才能持久，方能获得好的投资收益。</p>
+<h2 id="唐书房"><a href="#唐书房" class="headerlink" title="唐书房"></a>唐书房</h2><p>作者就是大名鼎鼎的唐朝，最开始是在雪球我看过他的文章，总觉得此人很牛，做什么事情都很专业，还能够给出不同于常人的见解，再难再复杂的事情，从他嘴里讲出来就是通俗易懂，印象深刻。后来他开了公众号，我倒是很晚才知道，很早就从雪球上下载帖子学习财报，后来《手把手教你读财报》出版后就买来学习、研读。</p>
+<p>唐朝现在是财富自由状态，据他本人讲，对金钱的欲望也不是很强烈，人就或得比较潇洒，这就是我将来的目标，十年后如果被动收入可以覆盖我的正常家庭支出，就表示达到初步的财富自由状态，我也希望那时候可以像唐朝一样随性，陪家里领导四处看风景。</p>
+<p>这是后话，这是榜样，路在脚下，慢慢赶上！</p>
+<p>公众号文章每一篇都质量上乘，只能坚持学习，学习唐朝的学习精神和方法，形成自己的知识体系，构建适合自己的投资理念，绝对是一位值得尊敬的、乐于分享的牛人。</p>
+<p>作者还有《手把手教你读财报2》和《价值投资实战手册》，都非常经典，同样化繁为简，通俗易懂，令人印象深刻，建议人手一套，反复学习。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI5NzA5MDEzNg==&mid=2649975129&idx=1&sn=f89002312229a7cebc87a2837344e170&chksm=f4bda46ec3ca2d7899c39469e63d210a10774314d3d4ec5ddc2b5aeb5b9a7ff61a088dd749c6&mpshare=1&scene=1&srcid=0322qOenKkccfoDARN0xDir5&key=cd2adf3dc134de939b78ee7ef3c3a6f26d9ef437974cc91c371ad39c554baf1558f52f278cba6d97c59e820d84e0505b432d20f5622ebde41b15e226eacfe731c741d780a9d1e1e178e9094aa2dec268&ascene=1&uin=MTA3NDEzNDc4MA%3D%3D&devicetype=Windows+10&version=62060739&lang=zh_CN&pass_ticket=7W8eQ%2BvgVGcWMTJ1R8On01dRXeyRhTTaACind%2FbnYcjNnWV3%2F53GPyU1cjwvdL1p" target="_blank" rel="noopener">书房文章精品合集</a></p>
+<h2 id="终身黑白"><a href="#终身黑白" class="headerlink" title="终身黑白"></a>终身黑白</h2><p>上面的杨天南和唐书房的文章，我首先是从终身黑白的喜马拉雅号里听到，慢慢才跟着过来的，所以也顺带关注了，感谢作者的引荐，也很佩服作者的坚持。</p>
+<h2 id="晓书童"><a href="#晓书童" class="headerlink" title="晓书童"></a>晓书童</h2><p>也是推荐好书、读书的好公众号，春节前的送书活动，居然还中了一次福利，获得了免费赠读的《显微镜下的大明》，确实是一本好书，拿到书后两天之内全部读完了，能把历史写的像小说一样兼顾故事性和史学研究分析，绝对值得推荐，也希望有看到这篇文章的，可以找来此书读一读。</p>
+<h2 id="少数派"><a href="#少数派" class="headerlink" title="少数派"></a>少数派</h2><p>通过Inoreader订阅了少数派，这里接触了很多牛人如何管理自己的知识体系的文章，如何管理自身时间的文章，如何保护隐私，生活中的小窍门等等，内容涉及多样，经常看到好玩有用的文章就及时星标，甚至保存到Evernote里备份。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2019/03/17/2019-03-17-%E6%AD%A3%E5%BC%8F%E5%90%AF%E7%94%A8Git%E6%96%B9%E5%BC%8F%E5%86%99%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/17/2019-03-17-%E6%AD%A3%E5%BC%8F%E5%90%AF%E7%94%A8Git%E6%96%B9%E5%BC%8F%E5%86%99%E5%8D%9A%E5%AE%A2/" itemprop="url">正式启用Git方式写博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-17T00:00:00+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Git技术是使用Github的基础"><a href="#Git技术是使用Github的基础" class="headerlink" title="Git技术是使用Github的基础"></a>Git技术是使用Github的基础</h1><h2 id="–关于Git"><a href="#–关于Git" class="headerlink" title="–关于Git"></a>–关于Git</h2><p>Git是使用Github的基础，可惜我好早前曾经试图学习过，但是后来因为种种原因又丢掉了，毕竟自己不是程序员，其实对于版本的要求并不高。</p>
+<p>但是最近由于工作中涉及到大量的合同的修改，一个项目的合同版本无数个，而且其中的差异究竟是什么，时间一长自己都搞不清楚了，所以萌生了重新学习Git的想法，于是，这个周末才从<a href="www.liaoxuefeng.com">廖雪峰老师的网站</a>快速的学习了一遍Git教程，失望地发现Git是没有 办法控制word的版本，那就还是拿来用于更新自己的博客吧。</p>
+<h2 id="–接下来要写什么"><a href="#–接下来要写什么" class="headerlink" title="–接下来要写什么"></a>–接下来要写什么</h2><p>这段时间以来，一直都是非常的忙，但是写作要继续，只有把读的书，看的文章，利用零散时间学习到的知识写下来，梳理出来，才能很好的吸收掌握，所以我还是会继续把平时工作和生活中总结梳理的技术相关的小技巧啊，有用的小软件啊，在这里做记录。</p>
+<p>另外，我还需要记录自己的投资实况。我的十年财务自由之路已经开启，为了督促和监督自己，也需要把相关的进展和执行过程中的一些思考忠实地记录下来，并且可以加以改善、修正。我还需要定期向老婆大人披露执行情况。</p>
+<h2 id="–如何坚持"><a href="#–如何坚持" class="headerlink" title="–如何坚持"></a>–如何坚持</h2><p>简单的事情做到极致，也能产生很好的效果。</p>
+<p>做事情不用贪多，日拱一卒，做好每天就好。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2017/12/19/2017-12-19-HidelpVPN%E6%8F%90%E4%BE%9B%E5%85%8D%E8%B4%B9%E7%9A%84VPN%E6%9C%8D%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/19/2017-12-19-HidelpVPN%E6%8F%90%E4%BE%9B%E5%85%8D%E8%B4%B9%E7%9A%84VPN%E6%9C%8D%E5%8A%A1/" itemprop="url">推荐HidelpVPN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-19T00:00:00+08:00">
+                2017-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>转载：<br>从09年开始hideipvpn.com网站一直提供免费VPN服务，距今已经好几年了活动还在继续着，看一下其免费VPN服务：</p>
+<p>免费测试VPN服务</p>
+<p>注册即可获得免费试用24小时的美国，英国，荷兰，德国，加拿大，波兰和法国的PPTP，L2TP，SSTP，OpenVPN和SOFTETHER的VPN帐户，主要用于测试HideIpVPN的可用性，也可以用在临时需要VPN时。点击访问此网页填写名、姓和邮箱点击SUBMIT即可收到含有VPN帐号信息的邮件（每个邮箱仅允许申请一次）。另外还可以申请7天的SmartDNS试用。免费试用包括其所有的VPN服务器上。</p>
+<p>免费全功能VPN和SmartDNS服务包Ninja Power</p>
+<p>如果你有一个博客、网站、论坛，你可以以任何语言写一篇介于150-400字的含有至少一个hideipvpn.com链接的自己原创的推介文章来申请免费全功能VPN和SmartDNS服务Ninja Power。写好之后你可以发邮件给contact [at] hideipvpn.com联系获得免费VPN帐号（点击查看详情）。</p>
+<p>官方网址：<a href="http://www.hideipvpn.com/" target="_blank" rel="noopener">http://www.hideipvpn.com/</a></p>
+<p>HideIpVPN主要是提供付费VPN服务，目前价格在同类VPN和SmartDNS服务中已经比较便宜了，当然你也可以帮助他们推销VPN服务赚取佣金（有兴趣的可以查看这里和这里）。</p>
+<p>本文原始地址：<a href="http://igfw.net/archives/6435" target="_blank" rel="noopener">http://igfw.net/archives/6435</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+  </nav>
+
 
 
           </div>
@@ -525,7 +2017,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -533,6 +2025,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>

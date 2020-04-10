@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="折腾,Hosts," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这几天有好几天没有折腾了，昨天又逛了逛自己常去的网站，如有乐享,又看到一些比较有用的资料，其中就有这一篇：更新及时的Hosts源以及Hosts管理工具。于是决定全文拷贝，我主要是收集整理到自己的网站，方便今后自己使用。 #活跃Hosts项目 racaljk&#x2F;hosts目前更新频率较高，关注人也多。正是因为用的人多吧，所以IP坏的也快。开源地址：https:&#x2F;&#x2F;github.com&#x2F;racaljk&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="更新及时的Hosts源以及Hosts管理工具">
+<meta property="og:url" content="https://hnzyc.github.io/%EF%BC%8Chttp://y2s6pn.coding-pages.com/2017/06/02/2017-06-02-Hosts/index.html">
+<meta property="og:site_name" content="钞票搬运工">
+<meta property="og:description" content="这几天有好几天没有折腾了，昨天又逛了逛自己常去的网站，如有乐享,又看到一些比较有用的资料，其中就有这一篇：更新及时的Hosts源以及Hosts管理工具。于是决定全文拷贝，我主要是收集整理到自己的网站，方便今后自己使用。 #活跃Hosts项目 racaljk&#x2F;hosts目前更新频率较高，关注人也多。正是因为用的人多吧，所以IP坏的也快。开源地址：https:&#x2F;&#x2F;github.com&#x2F;racaljk&#x2F;">
+<meta property="article:published_time" content="2017-06-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-20T13:37:27.365Z">
+<meta property="article:author" content="Davy Zhao">
+<meta property="article:tag" content="折腾">
+<meta property="article:tag" content="Hosts">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2017/06/02/2017-06-02-Hosts/"/>
+
+
+
+
+
+  <title>更新及时的Hosts源以及Hosts管理工具 | 钞票搬运工</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钞票搬运工</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">投资、成长，终生学习</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hnzyc.github.io/，http://y2s6pn.coding-pages.com/2017/06/02/2017-06-02-Hosts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davy Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钞票搬运工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">更新及时的Hosts源以及Hosts管理工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-02T00:00:00+08:00">
+                2017-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这几天有好几天没有折腾了，昨天又逛了逛自己常去的网站，<a href="51.ruyo.net">如有乐享</a>,又看到一些比较有用的资料，其中就有这一篇：<a href="http://51.ruyo.net/p/4118.html" target="_blank" rel="noopener">更新及时的Hosts源以及Hosts管理工具</a>。于是决定全文拷贝，我主要是收集整理到自己的网站，方便今后自己使用。</p>
+<p>#活跃Hosts项目</p>
+<p><strong>racaljk/hosts</strong><br>目前更新频率较高，关注人也多。正是因为用的人多吧，所以IP坏的也快。<br>开源地址：<a href="https://github.com/racaljk/hosts" target="_blank" rel="noopener">https://github.com/racaljk/hosts</a><br>Hosts地址：<a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="noopener">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a><br>这个我在自己的Hozz中已经采用了。</p>
+<p><strong>sy618/hosts</strong></p>
+<p>提供FQ和屏蔽广告</p>
+<p>开源地址：<a href="https://github.com/sy618/hosts" target="_blank" rel="noopener">https://github.com/sy618/hosts</a><br>Hosts地址：</p>
+<p><a href="https://raw.githubusercontent.com/sy618/hosts/master/FQ" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/FQ</a><br><a href="https://raw.githubusercontent.com/sy618/hosts/master/ADFQ" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/ADFQ</a></p>
+<p><strong>lennylxx/ipv6-hosts</strong></p>
+<p>特点很明显IPV6嘛</p>
+<p>开源地址：<a href="https://github.com/lennylxx/ipv6-hosts" target="_blank" rel="noopener">https://github.com/lennylxx/ipv6-hosts</a></p>
+<p>Hosts地址：<a href="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts" target="_blank" rel="noopener">https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts</a></p>
+<p><strong>wangchunming/2017hosts</strong></p>
+<p>可看YouTube，PC和手机不同的Hosts</p>
+<p>开源地址：<a href="https://github.com/wangchunming/2017hosts" target="_blank" rel="noopener">https://github.com/wangchunming/2017hosts</a></p>
+<p>Hosts地址：</p>
+<p><a href="https://raw.githubusercontent.com/wangchunming/2017hosts/master/hosts-pc" target="_blank" rel="noopener">https://raw.githubusercontent.com/wangchunming/2017hosts/master/hosts-pc</a><br><a href="https://raw.githubusercontent.com/wangchunming/2017hosts/master/hosts-mobile" target="_blank" rel="noopener">https://raw.githubusercontent.com/wangchunming/2017hosts/master/hosts-mobile</a></p>
+<p><strong>老D的Hosts</strong></p>
+<p>名气比较大，分享的方式百度网盘+文件加密</p>
+<p>访问地址：<a href="https://laod.cn/hosts/2017-google-hosts.html" target="_blank" rel="noopener">https://laod.cn/hosts/2017-google-hosts.html</a><br>这个本人也已采用。</p>
+<p>另外本人也忘了以前从其他哪个地方收集的Hosts地址，也一并放在这里作为补充：</p>
+<p><strong>号称去广告</strong><br><a href="https://raw.githubusercontent.com/vokins/yhosts/master/hosts" target="_blank" rel="noopener">https://raw.githubusercontent.com/vokins/yhosts/master/hosts</a></p>
+<p><strong>号称可以看youtube</strong><br><a href="https://raw.githubusercontent.com/sy618/hosts/master/y" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/y</a></p>
+<p><strong>号称可以上Google play</strong><br><a href="https://raw.githubusercontent.com/sy618/hosts/master/p" target="_blank" rel="noopener">https://raw.githubusercontent.com/sy618/hosts/master/p</a></p>
+<p>#修改Hosts</p>
+<ol>
+<li>手动修改更新</li>
+</ol>
+<p>##Windows</p>
+<p>用文本编辑器（如记事本等）打开文件：<br>    C:\Windows\System32\drivers\etc\hosts<br>并将我们的hosts文件中的内容全部内容复制到该文件中并保存。</p>
+<blockquote>
+<p>注意：如果遇到无法保存，请右键文件hosts并找到“属性” -&gt; “安全”，然后选择你登陆的用户名，最后点击编辑，勾选“写入”即可。</p>
+</blockquote>
+<p>##Mac OS</p>
+<p>请 新建/修改 /private/etc/hosts 文件，并将我们的hosts文件中的内容全部内容复制到该文件中并保存。</p>
+<pre><code>也可以使用Gas Mask工具。</code></pre><p>##Android</p>
+<p>请 新建/修改 /system/etc/hosts 文件，并将hosts文件中的内容全部内容复制到该文件中并保存。</p>
+<p>##iOS</p>
+<p>请 新建/修改 /etc/hosts 文件，并将hosts文件中的内容全部内容复制到该文件中并保存。</p>
+<p>##Linux</p>
+<p>请 新建/修改 /etc/hosts 文件，并将hosts文件中的内容全部内容复制到该文件中并保存。</p>
+<ol start="2">
+<li>利用软件更新</li>
+</ol>
+<p>1）<strong>SwitchHosts</strong> 不错的软件，支持MAC、Windows、Linux</p>
+<p>开源地址：<a href="https://github.com/oldj/SwitchHosts" target="_blank" rel="noopener">https://github.com/oldj/SwitchHosts</a></p>
+<p>2）<strong>Gas Mask</strong> 支持MAC系统</p>
+<p>访问地址：<a href="http://www.macupdate.com/app/mac/29949/gas-mask/" target="_blank" rel="noopener">http://www.macupdate.com/app/mac/29949/gas-mask/</a></p>
+<p>3）<strong>Hozz</strong>也是一款不错的管理工具。支持MAC 、Windows、Linux</p>
+<p>开源地址：<a href="https://github.com/ppoffice/Hozz" target="_blank" rel="noopener">https://github.com/ppoffice/Hozz</a></p>
+<p>下载地址：<a href="https://github.com/ppoffice/Hozz/releases" target="_blank" rel="noopener">https://github.com/ppoffice/Hozz/releases</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+          
+            <a href="/tags/Hosts/" rel="tag"># Hosts</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/09/2017-05-09-%E8%BD%AC%E5%B8%96%EF%BC%9AHomebrew%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" rel="next" title="转帖：Homebrew的安装与使用">
+                <i class="fa fa-chevron-left"></i> 转帖：Homebrew的安装与使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/14/2017-06-14-%E8%B7%AF%E7%94%B1%E5%99%A8%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0hosts/" rel="prev" title="路由器自动更新hosts">
+                路由器自动更新hosts <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Davy Zhao</p>
+              <p class="site-description motion-element" itemprop="description">离钱近，离事远，离是非更远！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Davy Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
